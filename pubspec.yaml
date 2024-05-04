@@ -1,7 +1,9 @@
 name: approval_dart
-description: A sample command-line application.
-version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+description: Approval Tests implementation in Dart.
+version: 0.0.1-dev
+repository: https://github.com/K1yoshiSho/approval_tests_dart
+homepage: https://github.com/K1yoshiSho/approval_tests_dart.git
+issue_tracker: https://github.com/K1yoshiSho/approval_tests_dart/issues
 
 environment:
   sdk: ^3.2.5

@@ -7,3 +7,7 @@ coverage/
 
 # Pubspec
 pubspec.lock
+
+# Codegen 
+*.*.dart
+generated_*
