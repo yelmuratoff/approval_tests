@@ -1,5 +1,8 @@
 // Importing Dart package for Gilded Rose example and Test Framework
-import 'package:approvals_test/examples/gilded_rose.dart';
+import 'dart:io';
+
+import 'package:approval_tests/examples/gilded_rose.dart';
+import 'package:approval_tests/src/core/utils/utils.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -7,6 +10,8 @@ void main() {
   group('Gilded Rose Item Update Tests', () {
     // Generate list of test cases for Gilded Rose and use it:
     final list = []; // approvedCases;
+
+    print("Current Directory: ${ApprovalUtils.directoryPath}");
 
     // Iterating over each test case in the list and performing item updates
     for (var test in list) {
