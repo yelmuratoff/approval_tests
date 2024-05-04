@@ -1,5 +1,5 @@
 // Importing Dart package for Gilded Rose example and Test Framework
-import 'package:approval_dart/examples/gilded_rose.dart';
+import 'package:approvals_test/examples/gilded_rose.dart';
 import 'package:test/test.dart';
 
 void main() {

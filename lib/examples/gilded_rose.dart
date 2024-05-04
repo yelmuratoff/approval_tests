@@ -1,5 +1,5 @@
 // Importing Dart package for Approval Testing
-import 'package:approval_dart/approval_dart.dart';
+import 'package:approvals_test/approval_dart.dart';
 
 void main() {
   // A list of all test cases that are to be verified

@@ -18,15 +18,15 @@ At the moment the package is in development and not ready to use. 🚧
 </p>
 
 <p align="center">
-  <a href="https://pub.dev/packages/approval_dart"><img src="https://img.shields.io/pub/v/approval_dart.svg" alt="Pub"></a>
+  <a href="https://pub.dev/packages/approvals_test"><img src="https://img.shields.io/pub/v/approvals_test.svg" alt="Pub"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://hits.dwyl.com/K1yoshiSho/approval_dart.svg?style=flat" alt="Repository views"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_dart?style=social" alt="Pub"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://hits.dwyl.com/K1yoshiSho/approvals_test.svg?style=flat" alt="Repository views"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approvals_test?style=social" alt="Pub"></a>
 </p>
 <p align="center">
-  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/likes/approval_dart?logo=flutter" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/popularity/approval_dart?logo=flutter" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/points/approval_dart?logo=flutter" alt="Pub points"></a>
+  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/likes/approvals_test?logo=flutter" alt="Pub likes"></a>
+  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/popularity/approvals_test?logo=flutter" alt="Pub popularity"></a>
+  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/points/approvals_test?logo=flutter" alt="Pub points"></a>
 </p>
 
 <br>
@@ -34,8 +34,8 @@ At the moment the package is in development and not ready to use. 🚧
 <br>
 <div align="center" >
   <p>Thanks to all contributors of this package</p>
-  <a href="https://github.com/K1yoshiSho/approval_tests/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=K1yoshiSho/approval_tests" />
+  <a href="https://github.com/K1yoshiSho/approval_tests_dart/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=K1yoshiSho/approval_tests_dart" />
   </a>
 </div>
 <br>
