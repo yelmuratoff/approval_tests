@@ -18,15 +18,15 @@ At the moment the package is in development and not ready to use. 🚧
 </p>
 
 <p align="center">
-  <a href="https://pub.dev/packages/approval_tests"><img src="https://img.shields.io/pub/v/approval_tests.svg" alt="Pub"></a>
+  <a href="https://pub.dev/packages/approval_dart"><img src="https://img.shields.io/pub/v/approval_dart.svg" alt="Pub"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://hits.dwyl.com/K1yoshiSho/approval_tests.svg?style=flat" alt="Repository views"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_tests?style=social" alt="Pub"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://hits.dwyl.com/K1yoshiSho/approval_dart.svg?style=flat" alt="Repository views"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_dart?style=social" alt="Pub"></a>
 </p>
 <p align="center">
-  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/likes/approval_tests?logo=flutter" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/popularity/approval_tests?logo=flutter" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/points/approval_tests?logo=flutter" alt="Pub points"></a>
+  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/likes/approval_dart?logo=flutter" alt="Pub likes"></a>
+  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/popularity/approval_dart?logo=flutter" alt="Pub popularity"></a>
+  <a href="https://pub.dev/packages/approval_dart/score"><img src="https://img.shields.io/pub/points/approval_dart?logo=flutter" alt="Pub points"></a>
 </p>
 
 <br>

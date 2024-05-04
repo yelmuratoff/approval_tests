@@ -1,15 +1,13 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:test/test.dart';
 
+/// A utility class for verifying test cases and saving approved test cases.
 final class ApprovalDart {
   static final String _defaultPath = _initializeDefaultPath();
 
+  /// Prevents instantiation of the ApprovalDart class.
   const ApprovalDart._();
-
-  /// Returns the default instance of ApprovalDart.
 
   /// Initializes and returns the default path based on the script's directory.
   static String _initializeDefaultPath() {
@@ -17,11 +15,13 @@ final class ApprovalDart {
     return "${path}approved_cases.g.dart";
   }
 
+  /// Returns the path to the approved test cases file.
   static String approvedPath() {
     String path = directoryPath();
     return "${path}approved_cases.txt";
   }
 
+  /// Returns the directory path of the script.
   static String directoryPath() {
     Uri scriptUri = Platform.script;
     String scriptPath = scriptUri.toFilePath();
@@ -35,6 +35,7 @@ final class ApprovalDart {
     testFunction.call(combinations);
   }
 
+  /// Verifies the output against the approved file.
   static void verify(String output, {String? filePath}) {
     File file = File(filePath ?? approvedPath());
     if (!file.existsSync()) {
@@ -52,6 +53,7 @@ final class ApprovalDart {
     }
   }
 
+  /// Saves approved test cases to a Dart file.
   static void saveApprovedCase(dynamic approvedCase, {String? filePath, String? fileName}) {
     saveCases(null, approvedCase, filePath: filePath, fileName: fileName);
   }
@@ -125,6 +127,7 @@ Iterable<List<T>> _cartesianProduct<T>(List<List<T>> lists) {
   return result;
 }
 
+/// Converts a snake_case string to camelCase.
 String _toCamelCaseFromSnakeCase(String snakeCase) {
   List<String> parts = snakeCase.split('_');
   String camelCase = parts[0];
