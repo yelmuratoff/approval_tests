@@ -7,7 +7,8 @@ abstract class ApprovalFailureReporter {
 class ConsoleReporter extends ApprovalFailureReporter {
   @override
   void report(String approved, String received) {
-    AppLogger.log('Approval Test Failed:\nApproved: $approved\nReceived: $received');
+    AppLogger.log(
+        'Approval Test Failed:\nApproved: $approved\nReceived: $received');
   }
 }
 

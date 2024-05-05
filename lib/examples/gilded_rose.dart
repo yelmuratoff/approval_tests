@@ -4,7 +4,12 @@ import 'package:approval_tests/src/old/old_approval.dart';
 void main() {
   // A list of all test cases that are to be verified
   const allTestCases = [
-    ["foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"], // Possible item names
+    [
+      "foo",
+      "Aged Brie",
+      "Backstage passes to a TAFKAL80ETC concert",
+      "Sulfuras, Hand of Ragnaros"
+    ], // Possible item names
     [-1, 0, 5, 6, 10, 11], // Possible "sellIn" values
     [-1, 0, 1, 49, 50] // Possible "quality" values
   ];
@@ -35,7 +40,8 @@ void main() {
       app.updateQuality();
 
       // Adding the updated item to expectedItems
-      expectedItems.add(Item(itemName, sellIn: testItem.sellIn, quality: testItem.quality));
+      expectedItems.add(
+          Item(itemName, sellIn: testItem.sellIn, quality: testItem.quality));
     }
 
     // Saving the state of actual and expected items
@@ -73,7 +79,8 @@ final class GildedRose {
   /// Non refactored updateQuality method
   void updateQuality() {
     for (int i = 0; i < items.length; i++) {
-      if (items[i].name != "Aged Brie" && items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
+      if (items[i].name != "Aged Brie" &&
+          items[i].name != "Backstage passes to a TAFKAL80ETC concert") {
         if (items[i].quality > 0) {
           if (items[i].name != "Sulfuras, Hand of Ragnaros") {
             items[i].quality = items[i].quality - 1;

@@ -29,7 +29,8 @@ final class ApprovalDart {
   }
 
   /// Executes tests on all combinations of given input sets.
-  static void verifyAllCombinations(List<List<dynamic>> inputSets, void Function(Iterable<List> list) testFunction) {
+  static void verifyAllCombinations(List<List<dynamic>> inputSets,
+      void Function(Iterable<List> list) testFunction) {
     Iterable<List> combinations = _cartesianProduct(inputSets);
     testFunction.call(combinations);
   }
@@ -53,12 +54,14 @@ final class ApprovalDart {
   }
 
   /// Saves approved test cases to a Dart file.
-  static void saveApprovedCase(dynamic approvedCase, {String? filePath, String? fileName}) {
+  static void saveApprovedCase(dynamic approvedCase,
+      {String? filePath, String? fileName}) {
     saveCases(null, approvedCase, filePath: filePath, fileName: fileName);
   }
 
   /// Saves approved test cases to a Dart file.
-  static void saveCases(dynamic receivedItems, dynamic expectedItems, {String? filePath, String? fileName}) {
+  static void saveCases(dynamic receivedItems, dynamic expectedItems,
+      {String? filePath, String? fileName}) {
     if (receivedItems is List && expectedItems is List) {
       List<Map<String, dynamic>> approvedCases = [];
       for (int i = 0; i < receivedItems.length; i++) {
@@ -67,13 +70,17 @@ final class ApprovalDart {
           "expected": expectedItems[i].toJson(),
         });
       }
-      final String name = fileName != null ? _toCamelCaseFromSnakeCase(fileName.replaceAll(".g.dart", "")) : "approvedCases";
-      File file = File(filePath ?? (fileName != null ? directoryPath() + fileName : _defaultPath));
+      final String name = fileName != null
+          ? _toCamelCaseFromSnakeCase(fileName.replaceAll(".g.dart", ""))
+          : "approvedCases";
+      File file = File(filePath ??
+          (fileName != null ? directoryPath() + fileName : _defaultPath));
 
       var buffer = StringBuffer();
       buffer.writeln("const $name = [");
       for (var testCase in approvedCases) {
-        buffer.writeln("  ${jsonEncode(testCase)}${testCase == approvedCases.last ? "" : ","}");
+        buffer.writeln(
+            "  ${jsonEncode(testCase)}${testCase == approvedCases.last ? "" : ","}");
       }
       buffer.writeln("];");
       file.writeAsStringSync(buffer.toString());

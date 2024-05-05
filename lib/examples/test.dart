@@ -36,7 +36,9 @@ void testItemUpdate(Map<String, dynamic> map) {
   );
 
   // Defining a test on the actual item where quality is updated
-  test('${actualItem.name} with sellIn ${actualItem.sellIn} and quality ${actualItem.quality}', () {
+  test(
+      '${actualItem.name} with sellIn ${actualItem.sellIn} and quality ${actualItem.quality}',
+      () {
     print("Initial: ${actualItem.toString()}");
     GildedRose app = GildedRose(items: [actualItem]);
 
@@ -44,6 +46,9 @@ void testItemUpdate(Map<String, dynamic> map) {
     app.updateQuality();
 
     print("Expected: ${expectedItem.toString()}");
-    expect(actualItem.toString(), equals(expectedItem.toString())); // Checking if the updated actual item is equal to the expected item
+    expect(
+        actualItem.toString(),
+        equals(expectedItem
+            .toString())); // Checking if the updated actual item is equal to the expected item
   });
 }

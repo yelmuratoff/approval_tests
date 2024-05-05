@@ -13,7 +13,9 @@ final class ApprovalUtils {
     return camelCase
         .split('')
         .map((String letter) {
-          return letter == letter.toUpperCase() ? '_${letter.toLowerCase()}' : letter;
+          return letter == letter.toUpperCase()
+              ? '_${letter.toLowerCase()}'
+              : letter;
         })
         .join('')
         .substring(1);
