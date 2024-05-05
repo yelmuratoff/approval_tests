@@ -9,12 +9,12 @@
 <h2 align="center"> Approval Tests implementation in Dart 🚀 </h2>
 
 
-I want to write, and am writing an implementation of a great tool like **[Approval Tests](https://approvaltests.com/)** in Dart. If anyone wants to help, please <a href="mailto:yelamanyelmuratov@gmail.com">email</a> me. 🙏
+I want to write, and am writing an implementation of a great tool like **[Approval Tests](https://approvaltests.com/)** in Dart. If anyone wants to help, please **[text](https://t.me/yelmuratoff)** me. 🙏
 
-At the moment the package is in development and not ready to use. 🚧
+At the moment the package is **in development** and <u>not ready</u> to use. 🚧
 
 <br>
-<span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! </span>
+<span style="font-size: 0.9em"> Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! 🙌</span>
 
 
 <br><br><br>
