@@ -18,15 +18,15 @@ At the moment the package is in development and not ready to use. 🚧
 </p>
 
 <p align="center">
-  <a href="https://pub.dev/packages/approvals_test"><img src="https://img.shields.io/pub/v/approvals_test.svg" alt="Pub"></a>
+  <a href="https://pub.dev/packages/approval_tests"><img src="https://img.shields.io/pub/v/approval_tests.svg" alt="Pub"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <a href="https://github.com/K1yoshiSho/approval_tests_dart"><img src="https://hits.dwyl.com/K1yoshiSho/approval_tests_dart.svg?style=flat" alt="Repository views"></a>
-  <a href="https://github.com/K1yoshiSho/approvals_test"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_tests_dart?style=social" alt="Pub"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_tests_dart?style=social" alt="Pub"></a>
 </p>
 <p align="center">
-  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/likes/approvals_test?logo=flutter" alt="Pub likes"></a>
-  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/popularity/approvals_test?logo=flutter" alt="Pub popularity"></a>
-  <a href="https://pub.dev/packages/approvals_test/score"><img src="https://img.shields.io/pub/points/approvals_test?logo=flutter" alt="Pub points"></a>
+  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/likes/approval_tests?logo=flutter" alt="Pub likes"></a>
+  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/popularity/approval_tests?logo=flutter" alt="Pub popularity"></a>
+  <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/points/approval_tests?logo=flutter" alt="Pub points"></a>
 </p>
 
 <br>
