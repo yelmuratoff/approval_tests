@@ -11,4 +11,5 @@ pubspec.lock
 # Codegen 
 *.*.dart
 *.g.dart
+*.received.txt
 generated_*
