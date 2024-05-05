@@ -1,5 +1,3 @@
-import 'package:approval_tests/src/namer/approval_namer.dart';
-
 class ApprovalNamer {
   final String file;
 
@@ -10,5 +8,5 @@ class ApprovalNamer {
 }
 
 class Namer extends ApprovalNamer {
-  Namer(String file) : super(file);
+  Namer(super.file);
 }
