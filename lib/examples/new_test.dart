@@ -9,12 +9,7 @@ void main() {
         'features': ['AI', 'Conversational'],
         'version': 4.0
       };
-      try {
-        ApprovalTests.verifyAsJson(complexObject, file: 'complex_json');
-      } catch (e) {
-        ApprovalTests.reporter.report('complex_json.approved.txt', 'complex_json.received.txt');
-        rethrow;
-      }
+      ApprovalTests.verifyAsJson(complexObject, approveResult: true);
     });
   });
 

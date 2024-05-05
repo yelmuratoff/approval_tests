@@ -7,7 +7,12 @@ class ApprovalTextWriter {
   ApprovalTextWriter(this.content, this.fileExtension);
 
   void writeToFile(String path) {
-    // Writing logic here
-    File(path).writeAsStringSync(content);
+    final File file = File(path);
+    if (!file.existsSync()) {
+      file.createSync(recursive: true);
+      file.writeAsStringSync(content);
+    } else {
+      file.writeAsStringSync(content);
+    }
   }
 }

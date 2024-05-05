@@ -1,3 +1,5 @@
+import 'package:approval_tests/src/core/logger/logger.dart';
+
 abstract class ApprovalFailureReporter {
   void report(String approved, String received);
 }
@@ -5,7 +7,7 @@ abstract class ApprovalFailureReporter {
 class ConsoleReporter extends ApprovalFailureReporter {
   @override
   void report(String approved, String received) {
-    print('Approval Test Failed:\nApproved: $approved\nReceived: $received');
+    AppLogger.log('Approval Test Failed:\nApproved: $approved\nReceived: $received');
   }
 }
 
@@ -17,6 +19,6 @@ class GuiReporter extends ApprovalFailureReporter {
   @override
   void report(String approved, String received) {
     // Open a GUI diff tool programmatically
-    print('Diff tool opened with files: $approved and $received');
+    AppLogger.log('Diff tool opened with files: $approved and $received');
   }
 }

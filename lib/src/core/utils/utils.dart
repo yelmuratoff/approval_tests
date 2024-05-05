@@ -24,6 +24,13 @@ final class ApprovalUtils {
     return '${Platform.script.path.split('/').sublist(0, Platform.script.path.split('/').length - 1).join('/')}/';
   }
 
+  static String get fileName {
+    return filePath.split('/').last.split('.').first;
+  }
+
   /// Returns the file path of the current file.
-  static String get filePath => Platform.script.path;
+  static String get filePath {
+    final Uri uri = Platform.script;
+    return Uri.decodeFull(uri.path);
+  }
 }

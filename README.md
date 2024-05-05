@@ -14,7 +14,7 @@ I want to write, and am writing an implementation of a great tool like Approval 
 At the moment the package is in development and not ready to use. 🚧
 
    <br>
-   <span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/K1yoshiSho/approval_tests.git">star the repo</a> to support the project! </span>
+   <span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! </span>
 </p>
 
 <p align="center">
