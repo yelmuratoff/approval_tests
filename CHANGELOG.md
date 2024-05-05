@@ -1,3 +1,7 @@
+## 0.0.6-dev
+
+- Some updates with README file.
+
 ## 0.0.5-dev
 
 - First working version, need to expand functionality and add more flexibilty. Also need to add more tests.
