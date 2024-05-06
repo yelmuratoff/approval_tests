@@ -1,0 +1,52 @@
+// ignore_for_file: avoid_relative_lib_imports
+
+import 'package:approval_tests/approval_dart.dart';
+
+import '../lib/gilded_rose.dart';
+import '../lib/item.dart';
+
+void main() {
+  // Define all test cases
+  const allTestCases = [
+    ["foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"],
+    [-1, 0, 5, 6, 10, 11],
+    [-1, 0, 1, 49, 50]
+  ];
+
+  // Function to process each combination and generate output for verification
+  String processItemCombination(Iterable<List<dynamic>> combinations) {
+    // final approvedBuffer = StringBuffer();
+    final receivedBuffer = StringBuffer();
+
+    for (var combination in combinations) {
+      // Extract data from the current combination
+      String itemName = combination[0];
+      int sellIn = combination[1];
+      int quality = combination[2];
+
+      // Create an Item object representing the current combination
+      Item testItem = Item(itemName, sellIn: sellIn, quality: quality);
+
+      // Add a copy of the item to actualItems for the "before" state
+      // receivedBuffer.writeln(testItem.toString());
+
+      // Passing testItem to the application
+      GildedRose app = GildedRose(items: [testItem]);
+
+      // Updating quality of testItem
+      app.updateQuality();
+
+      // Adding the updated item to expectedItems
+      receivedBuffer.writeln(testItem.toString());
+    }
+
+    // Return a string representation of the updated item
+    return receivedBuffer.toString();
+  }
+
+  // Perform the verification for all combinations
+  ApprovalTests.verifyAllCombinations(
+    inputs: allTestCases,
+    processor: processItemCombination,
+  );
+}

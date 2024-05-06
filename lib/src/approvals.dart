@@ -69,6 +69,42 @@ class ApprovalTests {
     }
   }
 
+  /// Verifies all combinations of inputs for a provided function.
+  static void verifyAllCombinations<T>({
+    required List<List<T>> inputs,
+    required String Function(Iterable<List<T>> combination) processor,
+    Options options = const Options(),
+    String? file,
+    int? line,
+    bool approveResult = false,
+  }) {
+    // Generate all combinations of inputs
+    final combinations = _cartesianProduct(inputs);
+
+    // Iterate over each combination, apply the processor function, and verify the result
+
+    try {
+      // Process the combination to get the response
+      final response = processor(combinations);
+
+      // Verify the processed response
+      verify(response, options: options, file: file, line: line, approveResult: approveResult);
+    } on Exception catch (e, st) {
+      AppLogger.exception(e, stackTrace: st);
+      rethrow;
+    }
+  }
+
+  // Helper method to generate all combinations of input sets
+  /// Computes the Cartesian product of a list of lists.
+  static Iterable<List<T>> _cartesianProduct<T>(List<List<T>> lists) {
+    Iterable<List<T>> result = [[]];
+    for (var list in lists) {
+      result = result.expand((x) => list.map((y) => [...x, y]));
+    }
+    return result;
+  }
+
   // Helper private method to check if contents of two files match
   static bool _filesMatch(String approvedPath, String receivedPath) {
     // Read contents of the approved and received files
