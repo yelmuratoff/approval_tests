@@ -1,7 +1,7 @@
 <div align="center">
 <p align="center">
     <a href="https://github.com/K1yoshiSho/approval_tests" align="center">
-        <img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests.png?raw=true" width="400px">
+        <img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/approval_tests.png?raw=true" width="400px">
     </a>
 </p>
 </div>
@@ -10,7 +10,11 @@
 
 ## 📖 About
 
-I want to write, and am writing an implementation of a great tool like **[Approval Tests](https://approvaltests.com/)** in Dart. If anyone wants to help, please **[text](https://t.me/yelmuratoff)** me. 🙏
+Unit testing asserts can be **difficult** to use. `Approval tests` simplify this by taking a snapshot of the results, and confirming that they have not changed.   
+
+In normal unit testing, you say `expect(person.getAge(), 5)`. Approvals allow you to do this when the thing that you want to assert is no longer a primitive but a complex object. For example, you can say, `Approvals.verify(person)`.
+
+I am writing an implementation of a great tool like **[Approval Tests](https://approvaltests.com/)** in Dart. If anyone wants to help, please **[text](https://t.me/yelmuratoff)** me. 🙏
 
 <!-- At the moment the package is **in development** and <u>not ready</u> to use. 🚧 -->
 
@@ -20,7 +24,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  approval_tests: ^0.0.7-dev
+  approval_tests: ^0.0.8-dev
 ```
 
 ## 📚 How to use
@@ -28,6 +32,9 @@ dependencies:
 ### Comparators
 
 You can use different comparators to compare files. The default is `CommandLineComparator` which compares files in the console.
+
+<img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/diff_command_line.png?raw=true" alt="CommandLineComparator img" title="ApprovalTests" style="max-width: 500px;">
+
 
 To use `IDEComparator` you just need to add it to `options`:
 ```dart
@@ -55,6 +62,12 @@ But before you add an `IDEComparator` you need to do the initial customization:
    - And you need to have the `studio` command available in your terminal.
    - To enable the `studio` command, you need to create the command-line launcher using `Tools - Create Command-line Launcher` in Android Studio.
 
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/diff_tool_vs_code.png?raw=true" alt="Visual Studio code img" style="width: 45%;margin-right: 1%;" />
+  <img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/diff_tool_studio.png?raw=true" alt="Android Studio img" style="width: 45%;" />
+</div>
+
+
 ## 📝 Examples
 
 ### JSON example
@@ -76,6 +89,8 @@ void main() {
   });
 }
 ```
+
+<img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/passed.png?raw=true" alt="Passed test example" title="ApprovalTests" style="max-width: 800px;">
 
 ### Gilded Rose
 
@@ -133,10 +148,39 @@ String processItemCombination(Iterable<List<dynamic>> combinations) {
 }
 ```
 
-## 🤝 Contributing
+<img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/doesnt_match_error.png?raw=true" alt="Passed test example" title="ApprovalTests" style="max-width: 800px;">
 
-<br>
-<span style="font-size: 0.9em"> Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! 🙌</span>
+## ❓ Which File Artifacts to Exclude from Source Control
+You must add any `approved` files to your source control system. But `received` files can change with any run and should be ignored. For Git, add this to your `.gitignore`:
+
+```gitignore
+*.received.*
+```
+
+## ✉️ For More Information
+### Questions?  
+Ask me on Telegram: [`@yelmuratoff`](https://t.me/yelmuratoff).   
+Email: [`yelamanyelmuratov@gmail.com`](mailto:yelamanyelmuratov@gmail.com)   
+
+### Video Tutorials
+- [Getting Started with ApprovalTests.Swift](https://qualitycoding.org/approvaltests-swift-getting-started/)
+- [How to Verify Objects (and Simplify TDD)](https://qualitycoding.org/approvaltests-swift-verify-objects/)
+- [Verify Arrays and See Simple, Clear Diffs](https://qualitycoding.org/verify-arrays-approvaltests-swift/)
+- [Write Parameterized Tests by Transforming Sequences](https://qualitycoding.org/parameterized-tests-approvaltests-swift/)
+- [Wrangle Legacy Code with Combination Approvals](https://qualitycoding.org/wrangle-legacy-code-combination-approvals/)
+
+You can also watch a series of short videos about [using ApprovalTests in .Net](http://www.youtube.com/playlist?list=PL0C32F89E8BBB5368) on YouTube.
+
+### Podcasts
+Prefer learning by listening? Then you might enjoy the following podcasts:
+
+- [This Agile Life](http://www.thisagilelife.com/46/)
+- [Hanselminutes](http://www.hanselminutes.com/360/approval-tests-with-llewellyn-falco)
+- [Herding Code](http://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/)
+- [The Watir Podcast](http://watirpodcast.com/podcast-53/)
+
+## 🤝 Contributing
+Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! 🙌
 
 
 <br><br><br>

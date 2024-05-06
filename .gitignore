@@ -12,7 +12,7 @@ pubspec.lock
 # Codegen 
 *.*.dart
 *.g.dart
-*.received.txt
+*.received.*
 generated_*
 
 # Other files

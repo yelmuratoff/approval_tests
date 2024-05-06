@@ -1,3 +1,7 @@
+## 0.0.8-dev
+
+- Updated README file: added examples, more info.
+
 ## 0.0.7-dev
 
 - Comparator completed, some refactoring. Updated README file.
