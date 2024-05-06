@@ -9,12 +9,14 @@ class ApprovalNamer {
   // A getter named `approved` that returns the string `'file.approved.txt'`.
   String get approved => '$file.approved.txt';
 
-  String get approvedFileName => '${file.split('/').last.split('.').first}.approved.txt';
+  String get approvedFileName =>
+      '${file.split('/').last.split('.').first}.approved.txt';
 
   // A getter named `received` that returns the string `'file.received.txt'`.
   String get received => '$file.received.txt';
 
-  String get receivedFileName => '${file.split('/').last.split('.').first}.received.txt';
+  String get receivedFileName =>
+      '${file.split('/').last.split('.').first}.received.txt';
 }
 
 // Define a class named `Namer` which extends the `ApprovalNamer` class.

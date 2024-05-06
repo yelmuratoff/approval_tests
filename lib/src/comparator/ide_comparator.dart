@@ -19,9 +19,11 @@ final class IDEComparator extends ComparatorImp {
     required String receivedPath,
   }) async {
     try {
-      await Process.run(ide.command, [ide.argument, approvedPath, receivedPath]);
+      await Process.run(
+          ide.command, [ide.argument, approvedPath, receivedPath]);
     } catch (e) {
-      logError('Error during comparison via ${ide.name}. Please restart your IDE. Error: $e');
+      logError(
+          'Error during comparison via ${ide.name}. Please restart your IDE. Error: $e');
       rethrow;
     }
   }

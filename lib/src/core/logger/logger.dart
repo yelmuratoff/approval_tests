@@ -40,7 +40,8 @@ final class AppLogger {
   static void log(String message) => _instance._logger.debug(message);
 
   /// `info` method to log messages with success log level.
-  static void success(String message) => _instance._logger.logTyped(_SuccessLog(message));
+  static void success(String message) =>
+      _instance._logger.logTyped(_SuccessLog(message));
 
   /// `error` method to log messages with error log level.
   static void error(String message) => _instance._logger.error(message);
