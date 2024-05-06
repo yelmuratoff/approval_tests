@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_relative_lib_imports
 
 import 'package:approval_tests/approval_dart.dart';
+import 'package:test/test.dart';
 
 import '../lib/gilded_rose.dart';
 import '../lib/item.dart';
@@ -13,40 +14,41 @@ void main() {
     [-1, 0, 1, 49, 50]
   ];
 
-  // Function to process each combination and generate output for verification
-  String processItemCombination(Iterable<List<dynamic>> combinations) {
-    // final approvedBuffer = StringBuffer();
-    final receivedBuffer = StringBuffer();
+  group('Approval Tests for Gilded Rose', () {
+    test('should verify all combinations of test cases', () {
+      // Perform the verification for all combinations
+      ApprovalTests.verifyAllCombinations(
+        inputs: allTestCases,
+        processor: processItemCombination,
+        file: "example/gilded_rose/test/approved_results/test",
+      );
+    });
+  });
+}
 
-    for (var combination in combinations) {
-      // Extract data from the current combination
-      String itemName = combination[0];
-      int sellIn = combination[1];
-      int quality = combination[2];
+// Function to process each combination and generate output for verification
+String processItemCombination(Iterable<List<dynamic>> combinations) {
+  final receivedBuffer = StringBuffer();
 
-      // Create an Item object representing the current combination
-      Item testItem = Item(itemName, sellIn: sellIn, quality: quality);
+  for (var combination in combinations) {
+    // Extract data from the current combination
+    String itemName = combination[0];
+    int sellIn = combination[1];
+    int quality = combination[2];
 
-      // Add a copy of the item to actualItems for the "before" state
-      // receivedBuffer.writeln(testItem.toString());
+    // Create an Item object representing the current combination
+    Item testItem = Item(itemName, sellIn: sellIn, quality: quality);
 
-      // Passing testItem to the application
-      GildedRose app = GildedRose(items: [testItem]);
+    // Passing testItem to the application
+    GildedRose app = GildedRose(items: [testItem]);
 
-      // Updating quality of testItem
-      app.updateQuality();
+    // Updating quality of testItem
+    app.updateQuality();
 
-      // Adding the updated item to expectedItems
-      receivedBuffer.writeln(testItem.toString());
-    }
-
-    // Return a string representation of the updated item
-    return receivedBuffer.toString();
+    // Adding the updated item to expectedItems
+    receivedBuffer.writeln(testItem.toString());
   }
 
-  // Perform the verification for all combinations
-  ApprovalTests.verifyAllCombinations(
-    inputs: allTestCases,
-    processor: processItemCombination,
-  );
+  // Return a string representation of the updated item
+  return receivedBuffer.toString();
 }

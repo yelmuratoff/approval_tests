@@ -1,3 +1,4 @@
+/// `Item` class for representing items in the Gilded Rose application
 final class Item {
   final String name;
   int sellIn;

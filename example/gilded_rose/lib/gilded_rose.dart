@@ -1,5 +1,6 @@
 import 'item.dart';
 
+/// Non refactored `GildedRose` class from Gilded Rose Kata
 final class GildedRose {
   final List<Item> items;
 
