@@ -1,3 +1,9 @@
+## 0.1.0-dev
+
+- Added verifyAll method to verify array of items (or use array as inputs).
+- Added verifyAllCombinationsAsJson method to verify all combinations of items as JSON.
+- Updated README file.
+
 ## 0.0.9-dev
 
 - Updated README file.

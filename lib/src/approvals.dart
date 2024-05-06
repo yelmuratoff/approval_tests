@@ -47,6 +47,33 @@ class ApprovalTests {
     }
   }
 
+  /// Verifies all combinations of inputs for a provided function.
+  static void verifyAll<T>({
+    required List<T> inputs,
+    required String Function(T item) processor,
+    Options options = const Options(),
+    String? file,
+    int? line,
+    bool approveResult = false,
+  }) {
+    try {
+      // Process the combination to get the response
+      final response = inputs.map((e) => processor(e));
+
+      final responseString = response.join('\n');
+
+      // Verify the processed response
+      verify(responseString,
+          options: options,
+          file: file,
+          line: line,
+          approveResult: approveResult);
+    } on Exception catch (e, st) {
+      AppLogger.exception(e, stackTrace: st);
+      rethrow;
+    }
+  }
+
   // Method to encode object to JSON and then verify it
   static void verifyAsJson(dynamic encodable,
       {Options options = const Options(),
@@ -71,13 +98,20 @@ class ApprovalTests {
 
   // Method to convert a sequence of objects to string format and then verify it
   static void verifySequence(List<dynamic> sequence,
-      {Options options = const Options(), String? file, int? line}) {
+      {Options options = const Options(),
+      String? file,
+      int? line,
+      bool approveResult = false}) {
     try {
       // Convert the sequence of objects into a multiline string
       var content = sequence.map((e) => e.toString()).join('\n');
 
       // Call the verify method on this content
-      verify(content, options: options, file: file, line: line);
+      verify(content,
+          options: options,
+          file: file,
+          line: line,
+          approveResult: approveResult);
     } on Exception catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -104,6 +138,35 @@ class ApprovalTests {
 
       // Verify the processed response
       verify(response,
+          options: options,
+          file: file,
+          line: line,
+          approveResult: approveResult);
+    } on Exception catch (e, st) {
+      AppLogger.exception(e, stackTrace: st);
+      rethrow;
+    }
+  }
+
+  static void verifyAllCombinationsAsJson<T>({
+    required List<List<T>> inputs,
+    required dynamic Function(Iterable<List<T>> combination) processor,
+    Options options = const Options(),
+    String? file,
+    int? line,
+    bool approveResult = false,
+  }) {
+    // Generate all combinations of inputs
+    final combinations = _cartesianProduct(inputs);
+
+    // Iterate over each combination, apply the processor function, and verify the result
+
+    try {
+      // Process the combination to get the response
+      final response = processor(combinations);
+
+      // Verify the processed response
+      verifyAsJson(response,
           options: options,
           file: file,
           line: line,
