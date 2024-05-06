@@ -1,3 +1,7 @@
+## 0.0.9-dev
+
+- Updated README file.
+
 ## 0.0.8-dev
 
 - Updated README file: added examples, more info.
