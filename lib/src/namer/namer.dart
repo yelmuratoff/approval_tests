@@ -1,12 +1,21 @@
+part of '../../approval_dart.dart';
+
+/// `ApprovalNamer` class is used to generate the file names for the approved and received files.
 class ApprovalNamer {
   final String file;
 
-  ApprovalNamer(this.file);
+  const ApprovalNamer(this.file);
 
+  // A getter named `approved` that returns the string `'file.approved.txt'`.
   String get approved => '$file.approved.txt';
+
+  // A getter named `received` that returns the string `'file.received.txt'`.
   String get received => '$file.received.txt';
 }
 
+// Define a class named `Namer` which extends the `ApprovalNamer` class.
 class Namer extends ApprovalNamer {
-  Namer(super.file);
+  // A constructor for the class `Namer`. It calls the parent's constructor
+  // with `file` as the argument.
+  const Namer(super.file);
 }
