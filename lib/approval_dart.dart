@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:logger/logger.dart';
 
@@ -13,3 +14,4 @@ part 'src/reporters/approval_failure_reporter.dart';
 part 'src/reporters/console_reporter.dart';
 part 'src/reporters/reporter_factory.dart';
 part 'src/reporters/gui_reporter.dart';
+part 'src/core/logger/approval_printer.dart';

@@ -1,4 +1,4 @@
-// Importing Dart package for Approval Testing
+// import 'package:approval_tests/approval_dart.dart';
 
 // void main() {
 //   // A list of all test cases that are to be verified
@@ -9,7 +9,7 @@
 //   ];
 
 //   // Verifying all combinations of test cases by passing them to an anonymous function
-//   ApprovalDart.verifyAllCombinations(allTestCases, (combinations) {
+//   ApprovalTests.verifyAllCombinations(allTestCases, (combinations) {
 //     // Initializing lists to store actual and expected items
 //     final List<Item> actualItems = [];
 //     final List<Item> expectedItems = [];
@@ -42,21 +42,4 @@
 
 //     // readValues(); (currently commented out)
 //   });
-// }
-
-// void readValues() {
-//   // Loading approved cases if they exist
-//   final approvedCases = ApprovalDart.loadApprovedCasesIfExists();
-//   final List<Item> actualItems = [];
-//   final List<Item> expectedItems = [];
-
-//   // For each case in approvedCases, add it as JSON to both actual and expected Items.
-//   for (var testCase in approvedCases) {
-//     actualItems.add(Item.fromJson(testCase['actual']));
-//     expectedItems.add(Item.fromJson(testCase['expected']));
-//   }
-
-//   // Printing the lengths of actualItems and expectedItems lists
-//   print(actualItems.length);
-//   print(expectedItems.length);
 // }

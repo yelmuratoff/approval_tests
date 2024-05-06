@@ -5,13 +5,11 @@ void main() {
   group('Approval Tests for Complex Objects', () {
     test('should approve complex JSON object', () {
       var complexObject = {
-        'name': 'ChatGPT',
-        'features': ['AI', 'Conversational'],
-        'version': 4.0
+        'name': 'JsonTest',
+        'features': ['Testing', 'JSON'],
+        'version': 0.1,
       };
       ApprovalTests.verifyAsJson(complexObject, approveResult: true);
     });
   });
-
-  // Additional tests...
 }

@@ -13,3 +13,6 @@ pubspec.lock
 *.g.dart
 *.received.txt
 generated_*
+
+# Other files
+.old.dart
