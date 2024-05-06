@@ -19,6 +19,11 @@ void main() {
       // Perform the verification for all combinations
       ApprovalTests.verifyAllCombinations(
         inputs: allTestCases,
+        options: const Options(
+          comparator: IDEComparator(
+            ide: ComparatorIDE.visualStudioCode,
+          ),
+        ),
         processor: processItemCombination,
         file: "example/gilded_rose/test/approved_results/test",
       );

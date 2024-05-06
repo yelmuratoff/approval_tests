@@ -8,8 +8,14 @@ class Options {
   // A final String variable `fileExtensionWithoutDot`. Its default value is set as 'txt'.
   final String fileExtensionWithoutDot;
 
+  final Comparator comparator;
+
   // A constructor for the class Options which initializes `isScrub` and `fileExtensionWithoutDot`.
-  const Options({this.isScrub = false, this.fileExtensionWithoutDot = 'txt'});
+  const Options({
+    this.isScrub = false,
+    this.fileExtensionWithoutDot = 'txt',
+    this.comparator = const CommandLineComparator(),
+  });
 
   // A method named `scrub` takes a string input, if `isScrub` is true it scrubs the input,
   // otherwise returns it as is.

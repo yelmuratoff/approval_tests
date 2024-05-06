@@ -5,9 +5,6 @@ class ApprovalTests {
   // Factory method to create an instance of ApprovalNamer with given file name
   static ApprovalNamer makeNamer(String file) => Namer(file);
 
-  // Getter to fetch the reporter object from the ReporterFactory
-  static ApprovalFailureReporter get reporter => ReporterFactory.reporter;
-
   // Method to verify if the content in response matches the approved content
   static void verify(String response, {Options options = const Options(), String? file, int? line, bool approveResult = false}) {
     try {
@@ -32,12 +29,10 @@ class ApprovalTests {
 
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
-        AppLogger.log('Test failed: ${namer.approved} does not match ${namer.received}');
-        // Comparator.compareFilesViaCommandLine(File(namer.approved).readAsStringSync(), File(namer.received).readAsStringSync());
-        Comparator.compareFilesViaAndroidStudio(namer.approved, namer.received);
-        throw Exception('Content does not match approved file.');
+        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received);
+        throw DoesntMatchException('Test failed: ${namer.approved} does not match ${namer.received}');
       } else if (isFilesMatch) {
-        AppLogger.good('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+        AppLogger.success('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
       }
     } on Exception catch (_) {
       rethrow;
@@ -68,6 +63,7 @@ class ApprovalTests {
       verify(content, options: options, file: file, line: line);
     } on Exception catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
+      rethrow;
     }
   }
 
@@ -100,20 +96,30 @@ class ApprovalTests {
   // Helper method to generate all combinations of input sets
   /// Computes the Cartesian product of a list of lists.
   static Iterable<List<T>> _cartesianProduct<T>(List<List<T>> lists) {
-    Iterable<List<T>> result = [[]];
-    for (var list in lists) {
-      result = result.expand((x) => list.map((y) => [...x, y]));
+    try {
+      Iterable<List<T>> result = [[]];
+      for (var list in lists) {
+        result = result.expand((x) => list.map((y) => [...x, y]));
+      }
+      return result;
+    } catch (e) {
+      AppLogger.exception(e);
+      rethrow;
     }
-    return result;
   }
 
   // Helper private method to check if contents of two files match
   static bool _filesMatch(String approvedPath, String receivedPath) {
-    // Read contents of the approved and received files
-    var approved = File(approvedPath).readAsStringSync();
-    var received = File(receivedPath).readAsStringSync();
+    try {
+      // Read contents of the approved and received files
+      var approved = File(approvedPath).readAsStringSync();
+      var received = File(receivedPath).readAsStringSync();
 
-    // Return true if contents of both files match exactly
-    return approved == received;
+      // Return true if contents of both files match exactly
+      return approved == received;
+    } catch (e) {
+      AppLogger.exception(e);
+      rethrow;
+    }
   }
 }

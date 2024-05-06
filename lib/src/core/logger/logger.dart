@@ -8,7 +8,6 @@ final class AppLogger {
   // Singleton instance of AppLogger
   static final AppLogger _instance = AppLogger._internal(
     Talker(
-      logger: TalkerLogger(),
       settings: TalkerSettings(
         titles: _defaultTitles,
       ),
@@ -26,63 +25,46 @@ final class AppLogger {
   // Define constant title with ANSI color codes.
   static const _approvalTitle = "ApprovalTests";
 
+  // Define default titles for different log types.
   static const _defaultTitles = {
-    /// Base logs section
     TalkerLogType.critical: '💀 $_approvalTitle',
     TalkerLogType.warning: '⚠️ $_approvalTitle',
     TalkerLogType.verbose: '🐛 $_approvalTitle',
-    TalkerLogType.info: '🟢 $_approvalTitle',
+    TalkerLogType.info: '🔍 $_approvalTitle',
     TalkerLogType.debug: '🐛 $_approvalTitle',
     TalkerLogType.error: '❌ $_approvalTitle',
     TalkerLogType.exception: '❌ $_approvalTitle',
   };
 
+  /// `log` method to log messages with debug log level.
   static void log(String message) => _instance._logger.debug(message);
 
-  static void good(String message) => _instance._logger.info(message);
+  /// `info` method to log messages with success log level.
+  static void success(String message) => _instance._logger.logTyped(_SuccessLog(message));
 
+  /// `error` method to log messages with error log level.
   static void error(String message) => _instance._logger.error(message);
 
-  static void exception(Exception exception, {StackTrace? stackTrace}) {
+  /// `exception` method to handle exceptions and log them with error log level.
+  static void exception(Object exception, {StackTrace? stackTrace}) {
     final message = exception.toString();
-    _instance._logger.error(message, exception, stackTrace);
+    _instance._logger.handle(
+      exception,
+      stackTrace,
+      message,
+    );
   }
+}
 
-// // Define mapping of log levels to their corresponding colors.
-//   static const _colors = {
-//     Level.trace: AnsiColor.fg(196),
-//     Level.debug: AnsiColor.none(),
-//     Level.info: AnsiColor.fg(10),
-//     Level.warning: AnsiColor.fg(208),
-//     Level.error: AnsiColor.fg(196),
-//     Level.fatal: AnsiColor.fg(199),
-//   };
+/// `_SuccessLog` is a class that extends `TalkerLog` to provide success logs.
+class _SuccessLog extends TalkerLog {
+  _SuccessLog(String super.message);
 
-// // Define mapping of log levels to their corresponding emojis.
-//   static const _emojies = {
-//     Level.trace: '🔍 $_approvalTitle',
-//     Level.debug: '🐛 $_approvalTitle',
-//     Level.info: '🟢 $_approvalTitle',
-//     Level.warning: '⚠️ $_approvalTitle',
-//     Level.error: '❌ $_approvalTitle',
-//     Level.fatal: '💀 $_approvalTitle',
-//   };
+  /// Your custom log title
+  @override
+  String get title => '🟢 ${AppLogger._approvalTitle}';
 
-  // // Helper method to apply color to a log message based on log level
-  // static String _colorMessage(Level level, String message) {
-  //   return _colors[level]!("| $message");
-  // }
-
-  // // Logging methods that use the helper method to colorize messages.
-  // static void log(String message) => _instance._logger.d(_colorMessage(Level.info, message));
-  // static void error(String message) => _instance._logger.e(_colorMessage(Level.error, message));
-  // static void warning(String message) => _instance._logger.w(_colorMessage(Level.warning, message));
-  // static void trace(String message) => _instance._logger.t(_colorMessage(Level.trace, message));
-  // static void fatal(String message) => _instance._logger.f(_colorMessage(Level.fatal, message));
-  // static void good(String message) => _instance._logger.i(_colorMessage(Level.info, message));
-
-  // static void exception(Exception exception, {StackTrace? stackTrace}) {
-  //   final message = exception.toString();
-  //   _instance._logger.e(_colorMessage(Level.error, message), stackTrace: stackTrace);
-  // }
+  /// Your custom log color
+  @override
+  AnsiPen get pen => AnsiPen()..xterm(121);
 }
