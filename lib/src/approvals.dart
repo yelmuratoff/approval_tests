@@ -33,6 +33,7 @@ class ApprovalTests {
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
         AppLogger.log('Test failed: ${namer.approved} does not match ${namer.received}');
+        Comparator.compareFilesInCommandLine(File(namer.approved).readAsStringSync(), File(namer.received).readAsStringSync());
         throw Exception('Content does not match approved file.');
       } else if (isFilesMatch) {
         AppLogger.good('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');

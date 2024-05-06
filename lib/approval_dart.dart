@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:logger/logger.dart';
+import 'package:talker/talker.dart';
 
 part 'src/approvals.dart';
 part 'src/writers/approval_text_writer.dart';
@@ -14,4 +14,4 @@ part 'src/reporters/approval_failure_reporter.dart';
 part 'src/reporters/console_reporter.dart';
 part 'src/reporters/reporter_factory.dart';
 part 'src/reporters/gui_reporter.dart';
-part 'src/core/logger/approval_printer.dart';
+part 'src/comparator/comparator.dart';
