@@ -6,9 +6,7 @@ final class ApprovalUtils {
   static String toCamelCaseFromSnakeCase(String snakeCase) {
     return snakeCase.split('_').map((String word) {
       // Split the snake_case string by '_'
-      return word[0].toUpperCase() +
-          word.substring(
-              1); // Capitalize the first character of each word and concatenate the rest of the string.
+      return word[0].toUpperCase() + word.substring(1); // Capitalize the first character of each word and concatenate the rest of the string.
     }).join(''); // Join all the words to form a string.
   }
 
@@ -22,8 +20,7 @@ final class ApprovalUtils {
               : letter; // If the letter is uppercase, prepend '_' and convert it to lowercase. Else, just use the letter.
         })
         .join('') // Join all the letters to form a string.
-        .substring(
-            1); // Remove the first '_' that was added before the first word.
+        .substring(1); // Remove the first '_' that was added before the first word.
   }
 
   /// Computes the Cartesian product of a list of lists.
@@ -42,7 +39,7 @@ final class ApprovalUtils {
 
   // Property that gets the directory path of the current file.
   static String get directoryPath {
-    return '${Platform.script.path.split('/').sublist(0, Platform.script.path.split('/').length - 1).join('/')}/'; // Get parts of the path except the last one (filename), join them with '/' and append '/' at the end.
+    return '${Platform.script.path.split('/').sublist(0, filePath.split('/').length - 1).join('/')}/'; // Get parts of the path except the last one (filename), join them with '/' and append '/' at the end.
   }
 
   // Property that gets the file name from file path.
@@ -56,10 +53,9 @@ final class ApprovalUtils {
 
   // Property that gets the file path of the current file.
   static String get filePath {
-    final Uri uri = Platform
-        .script; // Get the URL (Uniform Resource Identifier) of the script being run.
-    return Uri.decodeFull(
-        uri.path); // Convert the URL-encoded path to a regular string.
+    // final Uri uri = Platform.script; // Get the URL (Uniform Resource Identifier) of the script being run.
+    // return Uri.decodeFull(uri.path); // Convert the URL-encoded path to a regular string.
+    return DartScript.self.pathToScript;
   }
 
   static Future<String> readFile({
