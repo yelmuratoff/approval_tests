@@ -11,8 +11,8 @@
 <p align="center">
   <a href="https://pub.dev/packages/approval_tests"><img src="https://img.shields.io/pub/v/approval_tests.svg" alt="Pub"></a>
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests_dart"><img src="https://hits.dwyl.com/K1yoshiSho/approval_tests_dart.svg?style=flat" alt="Repository views"></a>
-  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_tests_dart?style=social" alt="Pub"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://hits.dwyl.com/K1yoshiSho/approval_tests.svg?style=flat" alt="Repository views"></a>
+  <a href="https://github.com/K1yoshiSho/approval_tests"><img src="https://img.shields.io/github/stars/K1yoshiSho/approval_tests?style=social" alt="Pub"></a>
 </p>
 <p align="center">
   <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/likes/approval_tests?logo=flutter" alt="Pub likes"></a>
@@ -218,15 +218,15 @@ Prefer learning by listening? Then you might enjoy the following podcasts:
 - [The Watir Podcast](https://watirpodcast.com/podcast-53/)
 
 ## 🤝 Contributing
-Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! 🙌   
+Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests.git">star the repo</a> to support the project! 🙌   
 The project is in the process of development and we invite you to contribute through pull requests and issue submissions. 👍   
 We appreciate your support. 🫰
 
 <br><br>
 <div align="center" >
   <p>Thanks to all contributors of this package</p>
-  <a href="https://github.com/K1yoshiSho/approval_tests_dart/graphs/contributors">
-    <img src="https://contrib.rocks/image?repo=K1yoshiSho/approval_tests_dart" />
+  <a href="https://github.com/K1yoshiSho/approval_tests/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=K1yoshiSho/approval_tests" />
   </a>
 </div>
 <br>
