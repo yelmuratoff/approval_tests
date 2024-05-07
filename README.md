@@ -181,15 +181,14 @@ Email: [`yelamanyelmuratov@gmail.com`](mailto:yelamanyelmuratov@gmail.com)
 - [Write Parameterized Tests by Transforming Sequences](https://qualitycoding.org/parameterized-tests-approvaltests-swift/)
 - [Wrangle Legacy Code with Combination Approvals](https://qualitycoding.org/wrangle-legacy-code-combination-approvals/)
 
-You can also watch a series of short videos about [using ApprovalTests in .Net](http://www.youtube.com/playlist?list=PL0C32F89E8BBB5368) on YouTube.
+You can also watch a series of short videos about [using ApprovalTests in .Net](https://www.youtube.com/playlist?list=PL0C32F89E8BBB5368) on YouTube.
 
 ### Podcasts
 Prefer learning by listening? Then you might enjoy the following podcasts:
 
-- [This Agile Life](http://www.thisagilelife.com/46/)
-- [Hanselminutes](http://www.hanselminutes.com/360/approval-tests-with-llewellyn-falco)
-- [Herding Code](http://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/)
-- [The Watir Podcast](http://watirpodcast.com/podcast-53/)
+- [Hanselminutes](https://www.hanselminutes.com/360/approval-tests-with-llewellyn-falco)
+- [Herding Code](https://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/)
+- [The Watir Podcast](https://watirpodcast.com/podcast-53/)
 
 ## 🤝 Contributing
 Show some 💙 and <a href="https://github.com/K1yoshiSho/approval_tests_dart.git">star the repo</a> to support the project! 🙌   
