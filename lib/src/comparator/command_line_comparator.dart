@@ -21,10 +21,15 @@ final class CommandLineComparator extends ComparatorImp {
 
       int maxLines = max(approvedLines.length, receivedLines.length);
       for (int i = 0; i < maxLines; i++) {
-        if (i >= approvedLines.length || i >= receivedLines.length || approvedLines[i] != receivedLines[i]) {
-          buffer.writeln('${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}');
-          buffer.writeln('Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}');
-          buffer.writeln('Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}');
+        if (i >= approvedLines.length ||
+            i >= receivedLines.length ||
+            approvedLines[i] != receivedLines[i]) {
+          buffer.writeln(
+              '${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}');
+          buffer.writeln(
+              'Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}');
+          buffer.writeln(
+              'Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}');
         }
       }
 

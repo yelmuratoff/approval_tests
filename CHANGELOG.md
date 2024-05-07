@@ -1,3 +1,8 @@
+## 0.2.1-dev
+
+- Fix: approval_dart changed to approval_tests.
+- Code formatted
+
 ## 0.2.0-dev
 
 - I rewrote the main functions of the class. Now you can use several comparison options.

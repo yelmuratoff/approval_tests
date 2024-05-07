@@ -10,7 +10,12 @@ import '../lib/item.dart';
 void main() {
   // Define all test cases
   const allTestCases = [
-    ["foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"],
+    [
+      "foo",
+      "Aged Brie",
+      "Backstage passes to a TAFKAL80ETC concert",
+      "Sulfuras, Hand of Ragnaros"
+    ],
     [-1, 0, 5, 6, 10, 11],
     [-1, 0, 1, 49, 50]
   ];
