@@ -1,4 +1,4 @@
-part of '../../../approval_dart.dart';
+part of '../../../approval_tests.dart';
 
 abstract interface class ExecutableQuery {
   String getQuery();

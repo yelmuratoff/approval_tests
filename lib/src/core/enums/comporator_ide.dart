@@ -1,4 +1,4 @@
-part of '../../../approval_dart.dart';
+part of '../../../approval_tests.dart';
 
 /// `ComparatorIDE` is an enum for comparing files using an `IDE`.
 enum ComparatorIDE {

@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// `ApprovalNamer` class is used to generate the file names for the approved and received files.
 class ApprovalNamer {

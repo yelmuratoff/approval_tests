@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// `Comparator` is an abstract class for comparing files.
 abstract interface class Comparator {

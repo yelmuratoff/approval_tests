@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:approval_tests/approval_dart.dart';
+import 'package:approval_tests/approval_tests.dart';
 
 void main() async {
   var query = NetworkRequestQuery(

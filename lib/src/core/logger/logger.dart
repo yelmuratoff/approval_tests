@@ -1,4 +1,4 @@
-part of '../../../approval_dart.dart';
+part of '../../../approval_tests.dart';
 
 /// `AppLogger` is a class that provides methods to log messages with different log levels.
 final class AppLogger {

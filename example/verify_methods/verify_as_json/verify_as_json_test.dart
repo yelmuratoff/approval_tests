@@ -1,4 +1,4 @@
-import 'package:approval_tests/approval_dart.dart';
+import 'package:approval_tests/approval_tests.dart';
 import 'package:test/test.dart';
 
 void main() {

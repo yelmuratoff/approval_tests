@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// Exception thrown when the actual value doesn't match the expected value.
 final class DoesntMatchException implements Exception {

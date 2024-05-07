@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// `ApprovalTextWriter` is a class that writes the content to a file at the specified path.
 class ApprovalTextWriter {

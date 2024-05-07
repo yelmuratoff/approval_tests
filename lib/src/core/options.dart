@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// `Options` class is a class used to set options for the approval test.
 class Options {

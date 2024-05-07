@@ -1,4 +1,4 @@
-part of '../../../approval_dart.dart';
+part of '../../../approval_tests.dart';
 
 /// Extension on [String] to verify the content of a response.
 extension ApprovalString on String {

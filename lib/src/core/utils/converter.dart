@@ -1,4 +1,4 @@
-part of '../../../approval_dart.dart';
+part of '../../../approval_tests.dart';
 
 class Converter {
   static String convert(String jsonString) {

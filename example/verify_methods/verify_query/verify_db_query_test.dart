@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:approval_tests/approval_dart.dart';
+import 'package:approval_tests/approval_tests.dart';
 
 class DatabaseRequestQuery implements ExecutableQuery {
   final String userId;

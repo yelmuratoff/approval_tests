@@ -1,4 +1,4 @@
-part of '../../approval_dart.dart';
+part of '../../approval_tests.dart';
 
 /// `IDEComparator` is a class for comparing files using an `IDE`.
 ///

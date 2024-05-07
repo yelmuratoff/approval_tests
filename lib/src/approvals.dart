@@ -1,4 +1,4 @@
-part of '../approval_dart.dart';
+part of '../approval_tests.dart';
 
 /// `ApprovalTests` is a class that provides methods to verify the content of a response.
 class ApprovalTests {
@@ -8,8 +8,7 @@ class ApprovalTests {
   // ================== Verify methods ==================
 
   // Method to verify if the content in response matches the approved content
-  static void verify(String response,
-      {Options options = const Options(), String? file, int? line}) {
+  static void verify(String response, {Options options = const Options(), String? file, int? line}) {
     try {
       // Get the file path without extension or use the provided file path
       final completedPath = file ?? (ApprovalUtils.filePath).split('.').first;
@@ -18,8 +17,7 @@ class ApprovalTests {
       final namer = makeNamer(file ?? completedPath);
 
       // Create writer object with scrubbed response and file extension retrieved from options
-      final writer = ApprovalTextWriter(
-          options.scrub(response), options.fileExtensionWithoutDot);
+      final writer = ApprovalTextWriter(options.scrub(response), options.fileExtensionWithoutDot);
 
       // Write the content to a file whose path is specified in namer.received
       writer.writeToFile(namer.received);
@@ -29,18 +27,14 @@ class ApprovalTests {
       }
 
       // Check if received file matches the approved file
-      final bool isFilesMatch =
-          ApprovalUtils.filesMatch(namer.approved, namer.received);
+      final bool isFilesMatch = ApprovalUtils.filesMatch(namer.approved, namer.received);
 
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
-        options.comparator.compare(
-            approvedPath: namer.approved, receivedPath: namer.received);
-        throw DoesntMatchException(
-            'Test failed: ${namer.approved} does not match ${namer.received}');
+        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received);
+        throw DoesntMatchException('Test failed: ${namer.approved} does not match ${namer.received}');
       } else if (isFilesMatch) {
-        AppLogger.success(
-            'Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+        AppLogger.success('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
       }
     } catch (_) {
       rethrow;
@@ -70,12 +64,10 @@ class ApprovalTests {
   }
 
   // Method to encode object to JSON and then verify it
-  static void verifyAsJson(dynamic encodable,
-      {Options options = const Options(), String? file, int? line}) {
+  static void verifyAsJson(dynamic encodable, {Options options = const Options(), String? file, int? line}) {
     try {
       // Encode the object into JSON format
-      var jsonContent =
-          Converter.encodeReflectively(encodable, includeClassName: true);
+      var jsonContent = Converter.encodeReflectively(encodable, includeClassName: true);
       var prettyJson = Converter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
@@ -87,8 +79,7 @@ class ApprovalTests {
   }
 
   // Method to convert a sequence of objects to string format and then verify it
-  static void verifySequence(List<dynamic> sequence,
-      {Options options = const Options(), String? file, int? line}) {
+  static void verifySequence(List<dynamic> sequence, {Options options = const Options(), String? file, int? line}) {
     try {
       // Convert the sequence of objects into a multiline string
       var content = sequence.map((e) => e.toString()).join('\n');
