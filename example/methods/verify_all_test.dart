@@ -8,7 +8,6 @@ void main() {
     ApprovalTests.verifyAll(
       inputs: items,
       processor: (item) => 'Item: $item',
-      file: 'example/methods/verify_all',
     );
   });
 }

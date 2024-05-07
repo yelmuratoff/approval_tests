@@ -9,7 +9,6 @@ void main() {
     try {
       ApprovalTests.verify(
         response,
-        file: 'example/methods/verify',
       );
     } catch (e) {
       print('Verification failed: $e');

@@ -19,11 +19,11 @@ void main() {
 
     ApprovalTests.verifyAsJson(
       item,
-      file: 'example/methods/verify_as_json',
     );
   });
 }
 
+/// Item class for testing
 class Item {
   final int id;
   final String name;
@@ -38,6 +38,7 @@ class Item {
   });
 }
 
+/// Sub item class for testing
 class SubItem {
   final int id;
   final String name;
@@ -50,6 +51,7 @@ class SubItem {
   });
 }
 
+/// Another item class for testing
 class AnotherItem {
   final int id;
   final String name;

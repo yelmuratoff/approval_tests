@@ -68,10 +68,11 @@ class ApprovalTests {
   static void verifyAsJson(dynamic encodable, {Options options = const Options(), String? file, int? line, bool approveResult = false}) {
     try {
       // Encode the object into JSON format
-      var jsonContent = _encodeReflectively(encodable);
+      var jsonContent = Converter.encodeReflectively(encodable, includeClassName: true);
+      var prettyJson = Converter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
-      verify(jsonContent, options: options, file: file, line: line, approveResult: approveResult);
+      verify(prettyJson, options: options, file: file, line: line, approveResult: approveResult);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -92,21 +93,23 @@ class ApprovalTests {
     }
   }
 
-  /// Verifies the output of a query. The query is processed to get the response, which is then verified.
-  static void verifyQuery<T>({
-    required T query,
-    required String Function(T query) processor,
+  // Method to verify executable queries
+  static void verifyQuery(
+    ExecutableQuery query, {
     Options options = const Options(),
     String? file,
     int? line,
     bool approveResult = false,
-  }) {
+  }) async {
     try {
-      // Process the query to get the response
-      final response = processor(query);
+      // Get the query string from the ExecutableQuery instance
+      final queryString = query.getQuery();
 
-      // Verify the processed response
-      verify(response, options: options, file: file, line: line, approveResult: approveResult);
+      // Write and possibly execute the query, then verify the result
+      final resultString = await query.executeQuery(queryString);
+
+      // Use the existing verify method to check the result against approved content
+      verify(resultString, options: options, file: file, line: line, approveResult: approveResult);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -196,90 +199,4 @@ class ApprovalTests {
       rethrow;
     }
   }
-
-  static String _encodeReflectively(Object? object) {
-    if (object == null) {
-      return 'null';
-    }
-
-    if (object is List) {
-      // Handle lists of objects by iterating through them
-      return '[${object.map((item) => _encodeReflectively(item)).join(', ')}]';
-    }
-
-    if (object is Map) {
-      // Handle maps directly
-      return '{${object.entries.map((e) => '"${e.key}": ${_encodeReflectively(e.value)}').join(', ')}}';
-    }
-
-    // Reflect the object
-    InstanceMirror mirror = reflect(object);
-    ClassMirror classMirror = mirror.type;
-
-    if (object is String) {
-      // JSON encode strings with proper escaping
-      return '"${object.replaceAll('"', '\\"')}"';
-    } else if (object is num || object is bool) {
-      // Numbers and booleans can be added directly
-      return object.toString();
-    }
-
-    // Handling custom objects
-    Map<String, String> jsonMap = {};
-
-    // Iterate over the instance variables of the class
-    for (var v in classMirror.declarations.values) {
-      if (v is VariableMirror && !v.isStatic) {
-        String key = MirrorSystem.getName(v.simpleName);
-        var value = mirror.getField(v.simpleName).reflectee;
-        jsonMap[key] = _encodeReflectively(value);
-      }
-    }
-
-    // Format the map into JSON
-    return '{${jsonMap.entries.map((entry) => '"${entry.key}": ${entry.value}').join(', ')}}';
-  }
-
-  // /// Encodes an object to JSON format using reflection.
-  // static String _encodeReflectively(Object? object) {
-  //   if (object == null) {
-  //     return 'Object{}';
-  //   }
-
-  //   if (object is List) {
-  //     // Handle lists of objects by iterating through them
-  //     List<String> items = [];
-  //     for (int i = 0; i < object.length; i++) {
-  //       items.add(_encodeReflectively(object[i]));
-  //     }
-  //     return items.join(', ');
-  //   }
-
-  //   // Reflect the object
-  //   InstanceMirror mirror = reflect(object);
-  //   ClassMirror classMirror = mirror.type;
-
-  //   String className = MirrorSystem.getName(classMirror.simpleName);
-  //   Map<String, dynamic> jsonMap = {};
-
-  //   // Iterate over the instance variables of the class
-  //   for (var v in classMirror.declarations.values) {
-  //     if (v is VariableMirror && !v.isStatic) {
-  //       String key = MirrorSystem.getName(v.simpleName);
-  //       var value = mirror.getField(v.simpleName).reflectee;
-
-  //       // Check if the value is a basic data type or needs recursive processing
-  //       if (value is String || value is num || value is bool) {
-  //         jsonMap[key] = value;
-  //       } else {
-  //         // Recursively encode nested objects
-  //         jsonMap[key] = _encodeReflectively(value);
-  //       }
-  //     }
-  //   }
-
-  //   // Format the map into the desired string format
-  //   String properties = jsonMap.entries.map((entry) => '${entry.key}: ${entry.value}').join(', ');
-  //   return '$className{$properties}';
-  // }
 }
