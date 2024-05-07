@@ -8,6 +8,11 @@ void main() {
         inputs: [
           [3, 5, 15],
         ],
+        options: Options(
+          comparator: IDEComparator(
+            ide: ComparatorIDE.visualStudioCode,
+          ),
+        ),
         processor: (items) => items.map((e) => fizzBuzz(e)).toList().toString(),
       );
     });

@@ -11,7 +11,8 @@ class Converter {
   }
 
   /// `encodeReflectively` is a method that encodes an object to JSON format using reflection.
-  static String encodeReflectively(Object? object, {bool includeClassName = false}) {
+  static String encodeReflectively(Object? object,
+      {bool includeClassName = false}) {
     if (object == null) {
       return 'null';
     }
@@ -51,11 +52,14 @@ class Converter {
     }
 
     // Format the map into JSON
-    String jsonBody = jsonMap.entries.map((entry) => '"${entry.key}": ${entry.value}').join(', ');
+    String jsonBody = jsonMap.entries
+        .map((entry) => '"${entry.key}": ${entry.value}')
+        .join(', ');
 
     if (includeClassName) {
       String className = MirrorSystem.getName(classMirror.simpleName);
-      String capitalizedClassName = '${className[0].toLowerCase()}${className.substring(1)}';
+      String capitalizedClassName =
+          '${className[0].toLowerCase()}${className.substring(1)}';
       return '{"$capitalizedClassName": {$jsonBody}}';
     }
 

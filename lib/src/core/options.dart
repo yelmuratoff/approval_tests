@@ -1,18 +1,23 @@
 part of '../../approval_dart.dart';
 
-/// `Options` class is a class that contains two variables `isScrub` and `fileExtensionWithoutDot`. Used to set options for the approval test.
+/// `Options` class is a class used to set options for the approval test.
 class Options {
-  // A final bool variable `isScrub`. Its default value is set as false.
+  /// A final bool variable `isScrub` used to determine if the input should be scrubbed.
   final bool isScrub;
 
-  // A final String variable `fileExtensionWithoutDot`. Its default value is set as 'txt'.
+  /// A final String variable `fileExtensionWithoutDot` used to set the file extension without a dot.
   final String fileExtensionWithoutDot;
 
+  /// A final variable `comparator` of type `Comparator` used to compare the approved and received files.
   final Comparator comparator;
+
+  /// A final bool variable `approveResult` used to determine if the result should be approved after the test.
+  final bool approveResult;
 
   // A constructor for the class Options which initializes `isScrub` and `fileExtensionWithoutDot`.
   const Options({
     this.isScrub = false,
+    this.approveResult = false,
     this.fileExtensionWithoutDot = 'txt',
     this.comparator = const CommandLineComparator(),
   });

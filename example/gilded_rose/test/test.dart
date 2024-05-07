@@ -26,7 +26,7 @@ void main() {
         inputs: allTestCases,
         options: const Options(
           comparator: IDEComparator(
-            ide: ComparatorIDE.androidStudio,
+            ide: ComparatorIDE.visualStudioCode,
           ),
         ),
         processor: processItemCombination,

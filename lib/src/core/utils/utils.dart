@@ -26,6 +26,20 @@ final class ApprovalUtils {
             1); // Remove the first '_' that was added before the first word.
   }
 
+  /// Computes the Cartesian product of a list of lists.
+  static Iterable<List<T>> cartesianProduct<T>(List<List<T>> lists) {
+    try {
+      Iterable<List<T>> result = [[]];
+      for (var list in lists) {
+        result = result.expand((x) => list.map((y) => [...x, y]));
+      }
+      return result;
+    } catch (e) {
+      AppLogger.exception(e);
+      rethrow;
+    }
+  }
+
   // Property that gets the directory path of the current file.
   static String get directoryPath {
     return '${Platform.script.path.split('/').sublist(0, Platform.script.path.split('/').length - 1).join('/')}/'; // Get parts of the path except the last one (filename), join them with '/' and append '/' at the end.
@@ -57,5 +71,20 @@ final class ApprovalUtils {
 
   static String lines(int count) {
     return List.filled(count, '=').join();
+  }
+
+  // Helper private method to check if contents of two files match
+  static bool filesMatch(String approvedPath, String receivedPath) {
+    try {
+      // Read contents of the approved and received files
+      var approved = File(approvedPath).readAsStringSync();
+      var received = File(receivedPath).readAsStringSync();
+
+      // Return true if contents of both files match exactly
+      return approved == received;
+    } catch (e) {
+      AppLogger.exception(e);
+      rethrow;
+    }
   }
 }

@@ -41,6 +41,38 @@ dependencies:
 
 ## 📚 How to use
 
+### Approving Results
+
+Approving results just means saving the `.approved.txt` file with your desired results.
+
+We’ll provide more explanation in due course, but, briefly, here are the most common approaches to do this.
+
+#### • Via Diff Tool
+Most diff tools have the ability to move text from left to right, and save the result.
+How to use diff tools is just below, there is a `Comparator` class for that.
+
+#### • Via approveResult property
+If you want the result to be automatically saved after running the test, you need to use the `approveResult` property in `Options`:
+
+```dart
+test('test complex JSON object', () {
+  var complexObject = {
+    'name': 'JsonTest',
+    'features': ['Testing', 'JSON'],
+    'version': 0.1,
+  };
+  ApprovalTests.verifyAsJson(
+    complexObject,
+    options: const Options(
+      approveResult: true,
+    ),
+  );
+});
+```
+
+#### • Via file rename
+You can just rename the `.received` file to `.approved`.
+
 ### Comparators
 
 You can use different comparators to compare files. The default is `CommandLineComparator` which compares files in the console.
@@ -82,6 +114,13 @@ But before you add an `IDEComparator` you need to do the initial customization:
 
 ## 📝 Examples
 
+I have provided a couple of small examples here to show you how to use the package.
+There are more examples in the `example` folder for you to explore. I will add more examples in the future.
+Inside, in the `gilded_rose` folder, there is an example of using `ApprovalTests` to test the legacy code of [Gilded Rose kata](https://github.com/emilybache/GildedRose-Refactoring-Kata).
+You can study it to understand how to use the package to test complex code.
+
+And the `verify_methods` folder has small examples of using different `ApprovalTests` methods for different cases.
+
 ### JSON example
 
 ```dart
@@ -89,78 +128,66 @@ import 'package:approval_tests/approval_dart.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('Approval Tests for Complex Objects', () {
-    test('test complex JSON object', () {
-      var complexObject = {
-        'name': 'JsonTest',
-        'features': ['Testing', 'JSON'],
-        'version': 0.1,
-      };
-      ApprovalTests.verifyAsJson(complexObject);
-    });
+  test('Verify JSON output of an object', () {
+    var item = Item(
+      id: 1,
+      name: "Widget",
+      anotherItem: AnotherItem(id: 1, name: "AnotherWidget"),
+      subItem: SubItem(
+        id: 1,
+        name: "SubWidget",
+        anotherItems: [
+          AnotherItem(id: 1, name: "AnotherWidget1"),
+          AnotherItem(id: 2, name: "AnotherWidget2"),
+        ],
+      ),
+    );
+
+    ApprovalTests.verifyAsJson(
+      item,
+    );
   });
+}
+
+/// Item class for testing
+class Item {
+  final int id;
+  final String name;
+  final SubItem subItem;
+  final AnotherItem anotherItem;
+
+  Item({
+    required this.id,
+    required this.name,
+    required this.subItem,
+    required this.anotherItem,
+  });
+}
+
+/// Sub item class for testing
+class SubItem {
+  final int id;
+  final String name;
+  final List<AnotherItem> anotherItems;
+
+  SubItem({
+    required this.id,
+    required this.name,
+    required this.anotherItems,
+  });
+}
+
+/// Another item class for testing
+class AnotherItem {
+  final int id;
+  final String name;
+
+  AnotherItem({required this.id, required this.name});
 }
 ```
 
 <img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/passed.png?raw=true" alt="Passed test example" title="ApprovalTests" style="max-width: 800px;">
 
-### Gilded Rose
-
-```dart
-void main() {
-  // Define all test cases
-  const allTestCases = [
-    ["foo", "Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"],
-    [-1, 0, 5, 6, 10, 11],
-    [-1, 0, 1, 49, 50]
-  ];
-
-  group('Approval Tests for Gilded Rose', () {
-    test('should verify all combinations of test cases', () {
-      // Perform the verification for all combinations
-      ApprovalTests.verifyAllCombinations(
-        inputs: allTestCases,
-        options: const Options(
-          comparator: IDEComparator(
-            ide: ComparatorIDE.visualStudioCode,
-          ),
-        ),
-        processor: processItemCombination,
-        file: "example/gilded_rose/test/approved_results/test",
-      );
-    });
-  });
-}
-
-// Function to process each combination and generate output for verification
-String processItemCombination(Iterable<List<dynamic>> combinations) {
-  final receivedBuffer = StringBuffer();
-
-  for (var combination in combinations) {
-    // Extract data from the current combination
-    String itemName = combination[0];
-    int sellIn = combination[1];
-    int quality = combination[2];
-
-    // Create an Item object representing the current combination
-    Item testItem = Item(itemName, sellIn: sellIn, quality: quality);
-
-    // Passing testItem to the application
-    GildedRose app = GildedRose(items: [testItem]);
-
-    // Updating quality of testItem
-    app.updateQuality();
-
-    // Adding the updated item to expectedItems
-    receivedBuffer.writeln(testItem.toString());
-  }
-
-  // Return a string representation of the updated item
-  return receivedBuffer.toString();
-}
-```
-
-<img src="https://github.com/K1yoshiSho/packages_assets/blob/main/assets/approval_tests/doesnt_match_error.png?raw=true" alt="Passed test example" title="ApprovalTests" style="max-width: 800px;">
 
 ## ❓ Which File Artifacts to Exclude from Source Control
 You must add any `approved` files to your source control system. But `received` files can change with any run and should be ignored. For Git, add this to your `.gitignore`:

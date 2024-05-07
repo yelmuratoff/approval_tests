@@ -9,7 +9,9 @@ void main() {
         'features': ['Testing', 'JSON'],
         'version': 0.1,
       };
-      ApprovalTests.verifyAsJson(complexObject);
+      ApprovalTests.verifyAsJson(
+        complexObject,
+      );
     });
   });
 }

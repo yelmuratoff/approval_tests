@@ -1,3 +1,11 @@
+## 0.2.0-dev
+
+- I rewrote the main functions of the class. Now you can use several comparison options.
+- Added methods for comparing JSON strings.
+- Added methods for array comparison.
+- Improved documentation.
+- Added more examples: each method has its own small example.
+
 ## 0.1.0-dev
 
 - Added verifyAll method to verify array of items (or use array as inputs).

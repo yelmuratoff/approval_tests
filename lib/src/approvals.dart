@@ -8,7 +8,8 @@ class ApprovalTests {
   // ================== Verify methods ==================
 
   // Method to verify if the content in response matches the approved content
-  static void verify(String response, {Options options = const Options(), String? file, int? line, bool approveResult = false}) {
+  static void verify(String response,
+      {Options options = const Options(), String? file, int? line}) {
     try {
       // Get the file path without extension or use the provided file path
       final completedPath = file ?? (ApprovalUtils.filePath).split('.').first;
@@ -17,24 +18,29 @@ class ApprovalTests {
       final namer = makeNamer(file ?? completedPath);
 
       // Create writer object with scrubbed response and file extension retrieved from options
-      final writer = ApprovalTextWriter(options.scrub(response), options.fileExtensionWithoutDot);
+      final writer = ApprovalTextWriter(
+          options.scrub(response), options.fileExtensionWithoutDot);
 
       // Write the content to a file whose path is specified in namer.received
       writer.writeToFile(namer.received);
 
-      if (approveResult) {
+      if (options.approveResult) {
         writer.writeToFile(namer.approved);
       }
 
       // Check if received file matches the approved file
-      final bool isFilesMatch = _filesMatch(namer.approved, namer.received);
+      final bool isFilesMatch =
+          ApprovalUtils.filesMatch(namer.approved, namer.received);
 
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
-        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received);
-        throw DoesntMatchException('Test failed: ${namer.approved} does not match ${namer.received}');
+        options.comparator.compare(
+            approvedPath: namer.approved, receivedPath: namer.received);
+        throw DoesntMatchException(
+            'Test failed: ${namer.approved} does not match ${namer.received}');
       } else if (isFilesMatch) {
-        AppLogger.success('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+        AppLogger.success(
+            'Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
       }
     } catch (_) {
       rethrow;
@@ -48,7 +54,6 @@ class ApprovalTests {
     Options options = const Options(),
     String? file,
     int? line,
-    bool approveResult = false,
   }) {
     try {
       // Process the combination to get the response
@@ -57,7 +62,7 @@ class ApprovalTests {
       final responseString = response.join('\n');
 
       // Verify the processed response
-      verify(responseString, options: options, file: file, line: line, approveResult: approveResult);
+      verify(responseString, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -65,14 +70,16 @@ class ApprovalTests {
   }
 
   // Method to encode object to JSON and then verify it
-  static void verifyAsJson(dynamic encodable, {Options options = const Options(), String? file, int? line, bool approveResult = false}) {
+  static void verifyAsJson(dynamic encodable,
+      {Options options = const Options(), String? file, int? line}) {
     try {
       // Encode the object into JSON format
-      var jsonContent = Converter.encodeReflectively(encodable, includeClassName: true);
+      var jsonContent =
+          Converter.encodeReflectively(encodable, includeClassName: true);
       var prettyJson = Converter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
-      verify(prettyJson, options: options, file: file, line: line, approveResult: approveResult);
+      verify(prettyJson, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -80,13 +87,14 @@ class ApprovalTests {
   }
 
   // Method to convert a sequence of objects to string format and then verify it
-  static void verifySequence(List<dynamic> sequence, {Options options = const Options(), String? file, int? line, bool approveResult = false}) {
+  static void verifySequence(List<dynamic> sequence,
+      {Options options = const Options(), String? file, int? line}) {
     try {
       // Convert the sequence of objects into a multiline string
       var content = sequence.map((e) => e.toString()).join('\n');
 
       // Call the verify method on this content
-      verify(content, options: options, file: file, line: line, approveResult: approveResult);
+      verify(content, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -99,7 +107,6 @@ class ApprovalTests {
     Options options = const Options(),
     String? file,
     int? line,
-    bool approveResult = false,
   }) async {
     try {
       // Get the query string from the ExecutableQuery instance
@@ -109,7 +116,7 @@ class ApprovalTests {
       final resultString = await query.executeQuery(queryString);
 
       // Use the existing verify method to check the result against approved content
-      verify(resultString, options: options, file: file, line: line, approveResult: approveResult);
+      verify(resultString, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -128,7 +135,7 @@ class ApprovalTests {
     bool approveResult = false,
   }) {
     // Generate all combinations of inputs
-    final combinations = _cartesianProduct(inputs);
+    final combinations = ApprovalUtils.cartesianProduct(inputs);
 
     // Iterate over each combination, apply the processor function, and verify the result
 
@@ -137,7 +144,7 @@ class ApprovalTests {
       final response = processor(combinations);
 
       // Verify the processed response
-      verify(response, options: options, file: file, line: line, approveResult: approveResult);
+      verify(response, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -153,7 +160,7 @@ class ApprovalTests {
     bool approveResult = false,
   }) {
     // Generate all combinations of inputs
-    final combinations = _cartesianProduct(inputs);
+    final combinations = ApprovalUtils.cartesianProduct(inputs);
 
     // Iterate over each combination, apply the processor function, and verify the result
 
@@ -162,40 +169,9 @@ class ApprovalTests {
       final response = processor(combinations);
 
       // Verify the processed response
-      verifyAsJson(response, options: options, file: file, line: line, approveResult: approveResult);
+      verifyAsJson(response, options: options, file: file, line: line);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
-      rethrow;
-    }
-  }
-
-  // ================== Helper methods ==================
-
-  /// Computes the Cartesian product of a list of lists.
-  static Iterable<List<T>> _cartesianProduct<T>(List<List<T>> lists) {
-    try {
-      Iterable<List<T>> result = [[]];
-      for (var list in lists) {
-        result = result.expand((x) => list.map((y) => [...x, y]));
-      }
-      return result;
-    } catch (e) {
-      AppLogger.exception(e);
-      rethrow;
-    }
-  }
-
-  // Helper private method to check if contents of two files match
-  static bool _filesMatch(String approvedPath, String receivedPath) {
-    try {
-      // Read contents of the approved and received files
-      var approved = File(approvedPath).readAsStringSync();
-      var received = File(receivedPath).readAsStringSync();
-
-      // Return true if contents of both files match exactly
-      return approved == received;
-    } catch (e) {
-      AppLogger.exception(e);
       rethrow;
     }
   }
