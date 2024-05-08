@@ -25,7 +25,7 @@ class DatabaseRequestQuery implements ExecutableQuery {
 
 void main() async {
   var dbQuery = DatabaseRequestQuery("1");
-  ApprovalTests.verifyQuery(
+  await Approvals.verifyQuery(
     dbQuery,
   );
 }

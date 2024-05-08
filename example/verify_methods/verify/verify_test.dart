@@ -7,7 +7,7 @@ void main() {
         '{"result": "success", "data": {"id": 1, "name": "Item"}}';
 
     try {
-      ApprovalTests.verify(
+      Approvals.verify(
         response,
       );
     } catch (e) {

@@ -8,6 +8,7 @@ abstract interface class Comparator {
   Future<void> compare({
     required String approvedPath,
     required String receivedPath,
+    bool isLogError = true,
   });
 }
 
@@ -17,6 +18,6 @@ abstract class ComparatorImp implements Comparator {
 
   /// A method named `logError` for logging errors.
   void logError(String message) {
-    AppLogger.error('Error: $message');
+    AppLogger.error(message);
   }
 }

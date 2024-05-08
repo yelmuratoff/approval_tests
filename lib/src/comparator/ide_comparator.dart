@@ -17,13 +17,14 @@ final class IDEComparator extends ComparatorImp {
   Future<void> compare({
     required String approvedPath,
     required String receivedPath,
+    bool isLogError = true,
   }) async {
     try {
-      await Process.run(
-          ide.command, [ide.argument, approvedPath, receivedPath]);
+      await Process.run(ide.command, [ide.argument, approvedPath, receivedPath]);
     } catch (e) {
-      logError(
-          'Error during comparison via ${ide.name}. Please restart your IDE. Error: $e');
+      if (isLogError) {
+        logError('Error during comparison via ${ide.name}. Please restart your IDE. Error: $e');
+      }
       rethrow;
     }
   }

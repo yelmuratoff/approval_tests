@@ -8,8 +8,8 @@ void main() {
       [3, 4]
     ];
 
-    ApprovalTests.verifyAllCombinations(
-      inputs: inputs,
+    Approvals.verifyAllCombinations(
+      inputs,
       processor: (combination) => 'Combination: ${combination.join(", ")}',
     );
   });

@@ -5,8 +5,8 @@ void main() {
   test('Verify all items', () {
     List<String> items = ['apple', 'banana', 'cherry'];
 
-    ApprovalTests.verifyAll(
-      inputs: items,
+    Approvals.verifyAll(
+      items,
       processor: (item) => 'Item: $item',
     );
   });

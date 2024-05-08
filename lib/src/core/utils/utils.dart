@@ -78,8 +78,19 @@ final class ApprovalUtils {
 
       // Return true if contents of both files match exactly
       return approved == received;
-    } catch (e) {
-      AppLogger.exception(e);
+    } catch (_) {
+      rethrow;
+    }
+  }
+
+  static void deleteFile(String path) {
+    try {
+      final File file = File(path);
+      final bool exists = file.existsSync();
+      if (exists) {
+        file.deleteSync();
+      }
+    } catch (_) {
       rethrow;
     }
   }

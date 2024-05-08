@@ -5,7 +5,7 @@ void main() {
   test('Verify sequence of numbers', () {
     List<int> sequence = [1, 2, 3, 4, 5];
 
-    ApprovalTests.verifySequence(
+    Approvals.verifySequence(
       sequence,
     );
   });

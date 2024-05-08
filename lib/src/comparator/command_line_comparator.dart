@@ -10,6 +10,7 @@ final class CommandLineComparator extends ComparatorImp {
   Future<void> compare({
     required String approvedPath,
     required String receivedPath,
+    bool isLogError = true,
   }) async {
     try {
       final String approvedContent = File(approvedPath).readAsStringSync();
@@ -21,24 +22,21 @@ final class CommandLineComparator extends ComparatorImp {
 
       int maxLines = max(approvedLines.length, receivedLines.length);
       for (int i = 0; i < maxLines; i++) {
-        if (i >= approvedLines.length ||
-            i >= receivedLines.length ||
-            approvedLines[i] != receivedLines[i]) {
-          buffer.writeln(
-              '${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}');
-          buffer.writeln(
-              'Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}');
-          buffer.writeln(
-              'Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}');
+        if (i >= approvedLines.length || i >= receivedLines.length || approvedLines[i] != receivedLines[i]) {
+          buffer.writeln('${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}');
+          buffer.writeln('Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}');
+          buffer.writeln('Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}');
         }
       }
 
-      if (buffer.isNotEmpty) {
+      if (buffer.isNotEmpty && isLogError) {
         final String message = buffer.toString();
         logError(message.trim());
       }
     } catch (e) {
-      logError('Error during comparison via Command Line. Error: $e');
+      if (isLogError) {
+        logError('Error during comparison via Command Line. Error: $e');
+      }
       rethrow;
     }
   }

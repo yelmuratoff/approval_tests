@@ -20,6 +20,15 @@ class Options {
   /// Number of the line.
   final int? line;
 
+  /// A final bool variable `deleteReceivedFile` used to determine if the received file should be deleted after passed test.
+  final bool deleteReceivedFile;
+
+  /// A final variable `namer` of type `Namer` used to set the name and path of the file.
+  final Namer? namer;
+
+  /// A final bool variable `logErrors` used to determine if the errors should be logged.
+  final bool logErrors;
+
   // A constructor for the class Options which initializes `isScrub` and `fileExtensionWithoutDot`.
   const Options({
     this.isScrub = false,
@@ -28,6 +37,9 @@ class Options {
     this.comparator = const CommandLineComparator(),
     this.filesPath,
     this.line,
+    this.deleteReceivedFile = false,
+    this.namer,
+    this.logErrors = true,
   });
 
   // A method named `scrub` takes a string input, if `isScrub` is true it scrubs the input,

@@ -1,7 +1,7 @@
 part of '../approval_tests.dart';
 
-/// `ApprovalTests` is a class that provides methods to verify the content of a response.
-class ApprovalTests {
+/// `Approvals` is a class that provides methods to verify the content of a response.
+class Approvals {
   // Factory method to create an instance of ApprovalNamer with given file name
   static ApprovalNamer makeNamer(String file) => Namer(file);
 
@@ -34,13 +34,20 @@ class ApprovalTests {
 
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
-        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received);
+        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received, isLogError: options.logErrors);
         throw DoesntMatchException('Test failed: ${namer.approved} does not match ${namer.received}');
       } else if (isFilesMatch) {
         AppLogger.success('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
       }
-    } catch (_) {
+    } catch (e, st) {
+      if (options.logErrors) {
+        AppLogger.exception(e, stackTrace: st);
+      }
       rethrow;
+    } finally {
+      if (options.deleteReceivedFile && options.filesPath != null) {
+        ApprovalUtils.deleteFile(Namer(options.filesPath!).received);
+      }
     }
   }
 
@@ -58,8 +65,7 @@ class ApprovalTests {
 
       // Verify the processed response
       verify(responseString, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
+    } catch (_) {
       rethrow;
     }
   }
@@ -76,8 +82,7 @@ class ApprovalTests {
 
       // Call the verify method on encoded JSON content
       verify(prettyJson, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
+    } catch (_) {
       rethrow;
     }
   }
@@ -93,14 +98,13 @@ class ApprovalTests {
 
       // Call the verify method on this content
       verify(content, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
+    } catch (_) {
       rethrow;
     }
   }
 
   // Method to verify executable queries
-  static void verifyQuery(
+  static Future<void> verifyQuery(
     ExecutableQuery query, {
     Options options = const Options(),
   }) async {
@@ -113,8 +117,7 @@ class ApprovalTests {
 
       // Use the existing verify method to check the result against approved content
       verify(resultString, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
+    } catch (_) {
       rethrow;
     }
   }
@@ -138,30 +141,7 @@ class ApprovalTests {
 
       // Verify the processed response
       verify(response, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
-      rethrow;
-    }
-  }
-
-  static void verifyAllCombinationsAsJson<T>(
-    List<List<T>> inputs, {
-    required dynamic Function(Iterable<List<T>> combination) processor,
-    Options options = const Options(),
-  }) {
-    // Generate all combinations of inputs
-    final combinations = ApprovalUtils.cartesianProduct(inputs);
-
-    // Iterate over each combination, apply the processor function, and verify the result
-
-    try {
-      // Process the combination to get the response
-      final response = processor(combinations);
-
-      // Verify the processed response
-      verifyAsJson(response, options: options);
-    } catch (e, st) {
-      AppLogger.exception(e, stackTrace: st);
+    } catch (_) {
       rethrow;
     }
   }

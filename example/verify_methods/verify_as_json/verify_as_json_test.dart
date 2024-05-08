@@ -17,7 +17,7 @@ void main() {
       ),
     );
 
-    ApprovalTests.verifyAsJson(
+    Approvals.verifyAsJson(
       item,
     );
   });

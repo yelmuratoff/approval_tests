@@ -4,16 +4,14 @@ import 'package:test/test.dart';
 void main() {
   group('Fizz Buzz', () {
     test("Verify all combinations", () {
-      ApprovalTests.verifyAll(
-        inputs: [
-          [3, 5, 15],
-        ],
+      Approvals.verifyAll(
+        [3, 5, 15],
         options: Options(
           comparator: IDEComparator(
             ide: ComparatorIDE.visualStudioCode,
           ),
         ),
-        processor: (items) => items.map((e) => fizzBuzz(e)).toList().toString(),
+        processor: (items) => fizzBuzz(items).toString(),
       );
     });
   });

@@ -4,9 +4,8 @@ import 'dart:io';
 import 'package:approval_tests/approval_tests.dart';
 
 void main() async {
-  var query = NetworkRequestQuery(
-      Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
-  ApprovalTests.verifyQuery(query);
+  var query = NetworkRequestQuery(Uri.parse('https://jsonplaceholder.typicode.com/todos/1'));
+  await Approvals.verifyQuery(query);
 }
 
 class NetworkRequestQuery implements ExecutableQuery {
