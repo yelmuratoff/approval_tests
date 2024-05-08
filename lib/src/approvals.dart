@@ -8,13 +8,16 @@ class ApprovalTests {
   // ================== Verify methods ==================
 
   // Method to verify if the content in response matches the approved content
-  static void verify(String response, {Options options = const Options(), String? file, int? line}) {
+  static void verify(
+    String response, {
+    Options options = const Options(),
+  }) {
     try {
       // Get the file path without extension or use the provided file path
-      final completedPath = file ?? (ApprovalUtils.filePath).split('.').first;
+      final completedPath = options.filesPath ?? (ApprovalUtils.filePath).split('.').first;
 
       // Create namer object with given or computed file name
-      final namer = makeNamer(file ?? completedPath);
+      final namer = makeNamer(options.filesPath ?? completedPath);
 
       // Create writer object with scrubbed response and file extension retrieved from options
       final writer = ApprovalTextWriter(options.scrub(response), options.fileExtensionWithoutDot);
@@ -42,12 +45,10 @@ class ApprovalTests {
   }
 
   /// Verifies all combinations of inputs for a provided function.
-  static void verifyAll<T>({
-    required List<T> inputs,
+  static void verifyAll<T>(
+    List<T> inputs, {
     required String Function(T item) processor,
     Options options = const Options(),
-    String? file,
-    int? line,
   }) {
     try {
       // Process the combination to get the response
@@ -56,7 +57,7 @@ class ApprovalTests {
       final responseString = response.join('\n');
 
       // Verify the processed response
-      verify(responseString, options: options, file: file, line: line);
+      verify(responseString, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -64,14 +65,17 @@ class ApprovalTests {
   }
 
   // Method to encode object to JSON and then verify it
-  static void verifyAsJson(dynamic encodable, {Options options = const Options(), String? file, int? line}) {
+  static void verifyAsJson(
+    dynamic encodable, {
+    Options options = const Options(),
+  }) {
     try {
       // Encode the object into JSON format
       var jsonContent = Converter.encodeReflectively(encodable, includeClassName: true);
       var prettyJson = Converter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
-      verify(prettyJson, options: options, file: file, line: line);
+      verify(prettyJson, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -79,13 +83,16 @@ class ApprovalTests {
   }
 
   // Method to convert a sequence of objects to string format and then verify it
-  static void verifySequence(List<dynamic> sequence, {Options options = const Options(), String? file, int? line}) {
+  static void verifySequence(
+    List<dynamic> sequence, {
+    Options options = const Options(),
+  }) {
     try {
       // Convert the sequence of objects into a multiline string
       var content = sequence.map((e) => e.toString()).join('\n');
 
       // Call the verify method on this content
-      verify(content, options: options, file: file, line: line);
+      verify(content, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -96,8 +103,6 @@ class ApprovalTests {
   static void verifyQuery(
     ExecutableQuery query, {
     Options options = const Options(),
-    String? file,
-    int? line,
   }) async {
     try {
       // Get the query string from the ExecutableQuery instance
@@ -107,7 +112,7 @@ class ApprovalTests {
       final resultString = await query.executeQuery(queryString);
 
       // Use the existing verify method to check the result against approved content
-      verify(resultString, options: options, file: file, line: line);
+      verify(resultString, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
@@ -117,13 +122,10 @@ class ApprovalTests {
   // ================== Combinations ==================
 
   /// Verifies all combinations of inputs for a provided function.
-  static void verifyAllCombinations<T>({
-    required List<List<T>> inputs,
+  static void verifyAllCombinations<T>(
+    List<List<T>> inputs, {
     required String Function(Iterable<List<T>> combination) processor,
     Options options = const Options(),
-    String? file,
-    int? line,
-    bool approveResult = false,
   }) {
     // Generate all combinations of inputs
     final combinations = ApprovalUtils.cartesianProduct(inputs);
@@ -135,20 +137,17 @@ class ApprovalTests {
       final response = processor(combinations);
 
       // Verify the processed response
-      verify(response, options: options, file: file, line: line);
+      verify(response, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;
     }
   }
 
-  static void verifyAllCombinationsAsJson<T>({
-    required List<List<T>> inputs,
+  static void verifyAllCombinationsAsJson<T>(
+    List<List<T>> inputs, {
     required dynamic Function(Iterable<List<T>> combination) processor,
     Options options = const Options(),
-    String? file,
-    int? line,
-    bool approveResult = false,
   }) {
     // Generate all combinations of inputs
     final combinations = ApprovalUtils.cartesianProduct(inputs);
@@ -160,7 +159,7 @@ class ApprovalTests {
       final response = processor(combinations);
 
       // Verify the processed response
-      verifyAsJson(response, options: options, file: file, line: line);
+      verifyAsJson(response, options: options);
     } catch (e, st) {
       AppLogger.exception(e, stackTrace: st);
       rethrow;

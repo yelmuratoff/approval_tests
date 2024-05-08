@@ -10,6 +10,15 @@ final class AppLogger {
     Talker(
       settings: TalkerSettings(
         titles: _defaultTitles,
+        colors: {
+          TalkerLogType.critical: AnsiPen()..red(),
+          TalkerLogType.warning: AnsiPen()..yellow(),
+          TalkerLogType.verbose: AnsiPen()..gray(),
+          TalkerLogType.info: AnsiPen()..cyan(),
+          TalkerLogType.debug: AnsiPen()..gray(),
+          TalkerLogType.error: AnsiPen()..red(),
+          TalkerLogType.exception: AnsiPen()..red(),
+        },
       ),
     ),
   );
@@ -40,8 +49,7 @@ final class AppLogger {
   static void log(String message) => _instance._logger.debug(message);
 
   /// `info` method to log messages with success log level.
-  static void success(String message) =>
-      _instance._logger.logTyped(_SuccessLog(message));
+  static void success(String message) => _instance._logger.logTyped(_SuccessLog(message));
 
   /// `error` method to log messages with error log level.
   static void error(String message) => _instance._logger.error(message);
@@ -49,10 +57,10 @@ final class AppLogger {
   /// `exception` method to handle exceptions and log them with error log level.
   static void exception(Object exception, {StackTrace? stackTrace}) {
     final message = exception.toString();
-    _instance._logger.handle(
+    _instance._logger.error(
+      message,
       exception,
       stackTrace,
-      message,
     );
   }
 }

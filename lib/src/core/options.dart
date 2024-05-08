@@ -14,12 +14,20 @@ class Options {
   /// A final bool variable `approveResult` used to determine if the result should be approved after the test.
   final bool approveResult;
 
+  /// Path to the files: `approved` and `received`.
+  final String? filesPath;
+
+  /// Number of the line.
+  final int? line;
+
   // A constructor for the class Options which initializes `isScrub` and `fileExtensionWithoutDot`.
   const Options({
     this.isScrub = false,
     this.approveResult = false,
     this.fileExtensionWithoutDot = 'txt',
     this.comparator = const CommandLineComparator(),
+    this.filesPath,
+    this.line,
   });
 
   // A method named `scrub` takes a string input, if `isScrub` is true it scrubs the input,
