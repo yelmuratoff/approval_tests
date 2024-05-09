@@ -1,67 +1,44 @@
 import 'package:approval_tests/approval_tests.dart';
 import 'package:test/test.dart';
 
+import '../example/verify_methods/verify_query/verify_db_query_test.dart';
+
+part 'approval_test_config.dart';
+
 void main() {
-  var dbQuery = DatabaseRequestQuery("1");
+  final approvalsTestConfig = ApprovalTestConfig();
+  final dbQuery = DatabaseRequestQuery("1");
 
-  group('Approvals: pass cases', () {
-    test('verify method', () {
-      Approvals.verify(
-        'Hello World',
-        options: Options(
-          filesPath: 'test/approved_files/verify',
-          deleteReceivedFile: true,
-        ),
-      );
+  group('Approvals: pass cases |', () {
+    test('Verify string with approved result options', () {
+      approvalsTestConfig.verify('Hello World', 'verify', approveResult: true);
     });
 
-    test('verifyAll method', () {
-      Approvals.verifyAll(
-        ['Hello World', 'Hello World'],
-        processor: (item) {
-          return item;
-        },
-        options: Options(
-          filesPath: 'test/approved_files/verify_all',
-          deleteReceivedFile: true,
-        ),
-      );
+    test('Verify all strings in a list', () {
+      approvalsTestConfig.verifyAll(['Hello World', 'Hello World'], 'verify_all');
     });
 
-    test('verifyAsJson method', () {
-      Approvals.verifyAsJson(
-        {"message": "Hello World"},
-        options: Options(
-          filesPath: 'test/approved_files/verify_as_json',
-          deleteReceivedFile: true,
-        ),
-      );
+    test('Verify JSON data', () {
+      approvalsTestConfig.verifyAsJson({"message": "Hello World"}, 'verify_as_json');
     });
 
-    test('verifyAllCombinations method', () {
-      Approvals.verifyAllCombinations(
-        [
-          [1, 2],
-          [3, 4]
-        ],
-        processor: (combination) => 'Combination: ${combination.join(", ")}',
-        options: Options(
-          filesPath: 'test/approved_files/verify_all_combinations',
-          deleteReceivedFile: true,
-        ),
-      );
+    test('Verify all combinations', () {
+      approvalsTestConfig.verifyAllCombinations([
+        [1, 2],
+        [3, 4],
+      ], 'verify_all_combinations');
     });
 
-    test("verify sequence", () {
-      Approvals.verifySequence(
-        [1, 2, 3],
-        options: Options(
-          deleteReceivedFile: true,
-          filesPath: 'test/approved_files/verify_sequence',
-        ),
-      );
+    test("Verify sequence", () {
+      approvalsTestConfig.verifySequence([1, 2, 3], 'verify_sequence');
     });
 
+    // Not work
+    test("Verify query result", () async {
+      await approvalsTestConfig.verifyQuery(dbQuery, 'verify_query');
+    });
+
+    // Work
     test("verify query", () async {
       await Approvals.verifyQuery(
         dbQuery,
@@ -71,130 +48,76 @@ void main() {
         ),
       );
     });
+  });
+
+  group('Approvals test for exceptions |', () {
+    test('Verify method should throw', () {
+      expect(
+        () => approvalsTestConfig.verify('Hello World', 'verify_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('Verify all method should throw', () {
+      expect(
+        () => approvalsTestConfig.verifyAll(['Hello World', 'Hello World'], 'verify_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('VerifyAsJson method should throw', () {
+      expect(
+        () => approvalsTestConfig.verifyAsJson({"message": "Hello World"}, 'verify_as_json_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test('Verify all combinations method should throw', () {
+      expect(
+        () => approvalsTestConfig.verifyAllCombinations([
+          [1, 2],
+          [3, 4],
+        ], 'verify_all_combinations_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test("Verify sequence method should throw", () {
+      expect(
+        () => approvalsTestConfig.verifySequence([1, 2, 3], 'verify_sequence_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
+
+    test("Verify query method should throw", () async {
+      expect(
+        () => approvalsTestConfig.verifyQuery(dbQuery, 'verify_query_exception', expectException: true),
+        throwsA(isA<Exception>()),
+      );
+    });
 
     test("Does not match exception", () {
       expect(
-        () => Approvals.verify(
+        () => approvalsTestConfig.verify(
           'Hello W0rld',
-          options: Options(
-            filesPath: 'test/approved_files/verify',
-            deleteReceivedFile: true,
-            logErrors: false,
-          ),
+          'verify',
+          expectException: true,
+          deleteReceivedFile: true,
+        ),
+        throwsA(isA<DoesntMatchException>()),
+      );
+    });
+
+    test("Log error test", () {
+      expect(
+        () => approvalsTestConfig.verify(
+          'Hello W0rld',
+          'verify',
+          expectException: false,
+          deleteReceivedFile: true,
         ),
         throwsA(isA<DoesntMatchException>()),
       );
     });
   });
-
-  group('Approvals test for exceptions', () {
-    test('verify method', () {
-      expect(
-        () => Approvals.verify(
-          'Hello World',
-          options: Options(
-            filesPath: 'test/approved_files/verify_exception',
-            deleteReceivedFile: true,
-            logErrors: false,
-          ),
-        ),
-        throwsA(isA<Exception>()),
-      );
-    });
-
-    test('verifyAll method', () {
-      expect(
-        () => Approvals.verifyAll(
-          ['Hello World', 'Hello World'],
-          processor: (item) {
-            return item;
-          },
-          options: Options(
-            filesPath: 'test/approved_files/verify_all_exception',
-            deleteReceivedFile: true,
-            logErrors: false,
-          ),
-        ),
-        throwsA(isA<Exception>()),
-      );
-    });
-
-    test('verifyAsJson method', () {
-      expect(
-        () => Approvals.verifyAsJson(
-          {"message": "Hello World"},
-          options: Options(
-            filesPath: 'test/approved_files/verify_as_json_exception',
-            deleteReceivedFile: true,
-            logErrors: false,
-          ),
-        ),
-        throwsA(isA<Exception>()),
-      );
-    });
-
-    // test('verifyAllCombinations method', () {
-    //   expect(
-    //     () => Approvals.verifyAllCombinations(
-    //       [
-    //         [1, 2],
-    //         [3, 4]
-    //       ],
-    //       processor: (combination) => 'Combination: ${combination.join(", ")}',
-    //       options: Options(
-    //         approveResult: true,
-    //         filesPath: 'test/approved_files/verify_all_combinations_exception',
-    //       ),
-    //     ),
-    //     throwsA(isA<Exception>()),
-    //   );
-    // });
-
-    // test("verify sequence", () {
-    //   expect(
-    //     () => Approvals.verifySequence(
-    //       [1, 2, 3],
-    //       options: Options(
-    //         approveResult: true,
-    //         filesPath: 'test/approved_files/verify_sequence_exception',
-    //       ),
-    //     ),
-    //     throwsA(isA<Exception>()),
-    //   );
-    // });
-
-    // test("verify query", () async {
-    //   expect(
-    //     () => Approvals.verifyQuery(
-    //       dbQuery,
-    //       options: Options(
-    //         approveResult: true,
-    //         filesPath: 'test/approved_files/verify_query_exception',
-    //       ),
-    //     ),
-    //     throwsA(isA<Exception>()),
-    //   );
-    // });
-  });
-}
-
-class DatabaseRequestQuery implements ExecutableQuery {
-  final String userId;
-
-  DatabaseRequestQuery(this.userId);
-
-  @override
-  String getQuery() => 'SELECT * FROM users WHERE id = $userId';
-
-  @override
-  Future<String> executeQuery(String query) async {
-    // Simulate a database response
-    await Future.delayed(Duration(milliseconds: 300)); // Simulate database latency
-    // Mocked database response for the user details
-    if (userId == "1") {
-      return '{"id": "1", "name": "John Doe", "email": "john@example.com"}';
-    } else {
-      return 'Error: User not found';
-    }
-  }
 }
