@@ -10,7 +10,7 @@ part 'constants/lines.dart';
 void main() {
   const helper = ApprovalTestHelper();
   const dbQuery = DatabaseRequestQuery("1");
-  final lines = _Lines.lines25;
+  const lines = _Lines.lines25;
 
   setUpAll(() {
     ApprovalLogger.log("$lines Tests are starting $lines");
@@ -37,10 +37,13 @@ void main() {
     });
 
     test('Verify all combinations', () {
-      helper.verifyAllCombinations([
-        [1, 2],
-        [3, 4],
-      ], 'verify_all_combinations');
+      helper.verifyAllCombinations(
+        [
+          [1, 2],
+          [3, 4],
+        ],
+        'verify_all_combinations',
+      );
     });
 
     test("Verify sequence", () {
@@ -56,7 +59,7 @@ void main() {
     test("verify query", () async {
       await Approvals.verifyQuery(
         dbQuery,
-        options: Options(
+        options: const Options(
           deleteReceivedFile: true,
           filesPath: 'test/approved_files/verify_query',
         ),
@@ -70,8 +73,11 @@ void main() {
     });
     test('Verify method should throw', () {
       expect(
-        () => helper.verify('Hello World', 'verify_exception',
-            expectException: true),
+        () => helper.verify(
+          'Hello World',
+          'verify_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
@@ -79,8 +85,10 @@ void main() {
     test('Verify all method should throw', () {
       expect(
         () => helper.verifyAll(
-            ['Hello World', 'Hello World'], 'verify_exception',
-            expectException: true),
+          ['Hello World', 'Hello World'],
+          'verify_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
@@ -88,34 +96,46 @@ void main() {
     test('VerifyAsJson method should throw', () {
       expect(
         () => helper.verifyAsJson(
-            {"message": "Hello World"}, 'verify_as_json_exception',
-            expectException: true),
+          {"message": "Hello World"},
+          'verify_as_json_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
 
     test('Verify all combinations method should throw', () {
       expect(
-        () => helper.verifyAllCombinations([
-          [1, 2],
-          [3, 4],
-        ], 'verify_all_combinations_exception', expectException: true),
+        () => helper.verifyAllCombinations(
+          [
+            [1, 2],
+            [3, 4],
+          ],
+          'verify_all_combinations_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
 
     test("Verify sequence method should throw", () {
       expect(
-        () => helper.verifySequence([1, 2, 3], 'verify_sequence_exception',
-            expectException: true),
+        () => helper.verifySequence(
+          [1, 2, 3],
+          'verify_sequence_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
 
     test("Verify query method should throw", () async {
       expect(
-        () => helper.verifyQuery(dbQuery, 'verify_query_exception',
-            expectException: true),
+        () => helper.verifyQuery(
+          dbQuery,
+          'verify_query_exception',
+          expectException: true,
+        ),
         throwsA(isA<Exception>()),
       );
     });
@@ -126,7 +146,6 @@ void main() {
           'Hello W0rld',
           'verify',
           expectException: true,
-          deleteReceivedFile: true,
         ),
         throwsA(isA<DoesntMatchException>()),
       );
@@ -137,8 +156,6 @@ void main() {
         () => helper.verify(
           'Hello W0rld',
           'verify',
-          expectException: false,
-          deleteReceivedFile: true,
         ),
         throwsA(isA<DoesntMatchException>()),
       );

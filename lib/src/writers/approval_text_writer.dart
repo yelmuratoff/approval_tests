@@ -7,7 +7,7 @@ class ApprovalTextWriter {
   final String fileExtension;
 
   // Constructor for the class ApprovalTextWriter that takes in two parameters: content and fileExtension
-  ApprovalTextWriter(this.content, this.fileExtension);
+  const ApprovalTextWriter(this.content, this.fileExtension);
 
   // A method that writes the given content to the file at the specified path
   void writeToFile(String path) {

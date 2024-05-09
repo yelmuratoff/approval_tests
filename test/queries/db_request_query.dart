@@ -14,8 +14,9 @@ class DatabaseRequestQuery implements ExecutableQuery {
   @override
   Future<String> executeQuery(String query) async {
     // Simulate a database response
-    await Future.delayed(
-        Duration(milliseconds: 400)); // Simulate database latency
+    await Future<dynamic>.delayed(
+      const Duration(milliseconds: 400),
+    ); // Simulate database latency
     // Mocked database response for the user details
     if (userId == "1") {
       return '{"id": "1", "name": "John Doe", "email": "john@example.com"}';

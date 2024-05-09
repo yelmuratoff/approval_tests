@@ -1,3 +1,9 @@
+## 0.3.2-dev
+
+- Default `lints` replaced by `sizzle_lints`.
+- Updated `analysis_options` file.
+- Updated README file.
+
 ## 0.3.1-dev
 
 - Updated README file.
@@ -13,7 +19,7 @@
 
 ## 0.2.1-dev
 
-- Fix: approval_dart changed to approval_tests.
+- Fix: `approval_dart` changed to `approval_tests`.
 - Code formatted
 
 ## 0.2.0-dev
@@ -26,8 +32,8 @@
 
 ## 0.1.0-dev
 
-- Added verifyAll method to verify array of items (or use array as inputs).
-- Added verifyAllCombinationsAsJson method to verify all combinations of items as JSON.
+- Added `verifyAll` method to verify array of items *(or use array as inputs)*.
+- Added `verifyAllCombinationsAsJson` method to verify all combinations of items as JSON.
 - Updated README file.
 
 ## 0.0.9-dev

@@ -2,6 +2,7 @@ part of '../approval_tests.dart';
 
 /// `Approvals` is a class that provides methods to verify the content of a response.
 class Approvals {
+  const Approvals._();
   // Factory method to create an instance of ApprovalNamer with given file name
   static ApprovalNamer makeNamer(String file) => Namer(file);
 
@@ -15,7 +16,7 @@ class Approvals {
     try {
       // Get the file path without extension or use the provided file path
       final completedPath =
-          options.filesPath ?? (ApprovalUtils.filePath).split('.').first;
+          options.filesPath ?? ApprovalUtils.filePath.split('.').first;
 
       // Create namer object with given or computed file name
       final namer = makeNamer(options.filesPath ?? completedPath);
@@ -37,15 +38,18 @@ class Approvals {
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
         options.comparator.compare(
-            approvedPath: namer.approved,
-            receivedPath: namer.received,
-            isLogError: options.logErrors);
+          approvedPath: namer.approved,
+          receivedPath: namer.received,
+          isLogError: options.logErrors,
+        );
         throw DoesntMatchException(
-            'Test failed: ${namer.approved} does not match ${namer.received}');
+          'Test failed: ${namer.approved} does not match ${namer.received}',
+        );
       } else if (isFilesMatch) {
         if (options.logResults) {
           ApprovalLogger.success(
-              'Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+            'Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]',
+          );
         }
       }
     } catch (e, st) {
@@ -59,7 +63,8 @@ class Approvals {
           ApprovalUtils.deleteFile(Namer(options.filesPath!).received);
         } else {
           ApprovalUtils.deleteFile(
-              Namer((ApprovalUtils.filePath).split('.').first).received);
+            Namer(ApprovalUtils.filePath.split('.').first).received,
+          );
         }
       }
     }
@@ -91,9 +96,11 @@ class Approvals {
   }) {
     try {
       // Encode the object into JSON format
-      var jsonContent = ApprovalConverter.encodeReflectively(encodable,
-          includeClassName: true);
-      var prettyJson = ApprovalConverter.convert(jsonContent);
+      final jsonContent = ApprovalConverter.encodeReflectively(
+        encodable,
+        includeClassName: true,
+      );
+      final prettyJson = ApprovalConverter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
       verify(prettyJson, options: options);
@@ -109,7 +116,7 @@ class Approvals {
   }) {
     try {
       // Convert the sequence of objects into a multiline string
-      var content = sequence.map((e) => e.toString()).join('\n');
+      final content = sequence.map((e) => e.toString()).join('\n');
 
       // Call the verify method on this content
       verify(content, options: options);

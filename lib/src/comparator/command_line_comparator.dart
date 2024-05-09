@@ -17,20 +17,23 @@ final class CommandLineComparator extends ComparatorImp {
       final String receivedContent = ApprovalUtils.readFile(path: receivedPath);
 
       final StringBuffer buffer = StringBuffer("Differences:\n");
-      List<String> approvedLines = approvedContent.split('\n');
-      List<String> receivedLines = receivedContent.split('\n');
+      final List<String> approvedLines = approvedContent.split('\n');
+      final List<String> receivedLines = receivedContent.split('\n');
 
-      int maxLines = max(approvedLines.length, receivedLines.length);
+      final int maxLines = max(approvedLines.length, receivedLines.length);
       for (int i = 0; i < maxLines; i++) {
         if (i >= approvedLines.length ||
             i >= receivedLines.length ||
             approvedLines[i] != receivedLines[i]) {
           buffer.writeln(
-              '${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}');
+            '${ApprovalUtils.lines(20)} Difference at line ${i + 1} ${ApprovalUtils.lines(20)}',
+          );
           buffer.writeln(
-              'Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}');
+            'Approved file: ${i < approvedLines.length ? approvedLines[i] : "No content"}',
+          );
           buffer.writeln(
-              'Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}');
+            'Received file: ${i < receivedLines.length ? receivedLines[i] : "No content"}',
+          );
         }
       }
 
@@ -41,8 +44,9 @@ final class CommandLineComparator extends ComparatorImp {
     } catch (e, st) {
       if (isLogError) {
         logError(
-            exception: 'Error during comparison via Command Line. Error: $e',
-            stackTrace: st);
+          exception: 'Error during comparison via Command Line. Error: $e',
+          stackTrace: st,
+        );
       }
       rethrow;
     }

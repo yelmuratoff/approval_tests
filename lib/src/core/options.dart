@@ -48,7 +48,6 @@ class Options {
 
   // A private method named `_scrubInput` that takes a string as input, removes all extra whitespaces
   // from the string and trims it (removes leading and trailing spaces).
-  String _scrubInput(String input) {
-    return input.replaceAll(RegExp(r'\s+'), ' ').trim();
-  }
+  String _scrubInput(String input) =>
+      input.replaceAll(RegExp(r'\s+'), ' ').trim();
 }

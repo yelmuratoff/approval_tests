@@ -7,7 +7,7 @@ void main() {
   test('Verify JSON output of an object', () {
     Approvals.verifyAsJson(
       ApprovalTestHelper.jsonItem,
-      options: Options(deleteReceivedFile: true),
+      options: const Options(deleteReceivedFile: true),
     );
   });
 }

@@ -3,12 +3,12 @@ import 'package:test/test.dart';
 
 void main() {
   test('Verify method', () {
-    String response =
+    const String response =
         '{"result": "success", "data": {"id": 1, "name": "Item"}}';
 
     Approvals.verify(
       response,
-      options: Options(deleteReceivedFile: true),
+      options: const Options(deleteReceivedFile: true),
     );
   });
 }

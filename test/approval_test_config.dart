@@ -20,10 +20,13 @@ class ApprovalTestHelper {
     ),
   );
 
-  void verify(String content, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) {
+  void verify(
+    String content,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) {
     Approvals.verify(
       content,
       options: _getOptions(
@@ -35,10 +38,13 @@ class ApprovalTestHelper {
     );
   }
 
-  void verifyAll(List<String> contents, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) {
+  void verifyAll(
+    List<String> contents,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) {
     Approvals.verifyAll(
       contents,
       processor: (item) =>
@@ -52,10 +58,13 @@ class ApprovalTestHelper {
     );
   }
 
-  void verifyAsJson(dynamic encodable, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) {
+  void verifyAsJson(
+    dynamic encodable,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) {
     Approvals.verifyAsJson(
       encodable,
       options: _getOptions(
@@ -67,10 +76,13 @@ class ApprovalTestHelper {
     );
   }
 
-  void verifyAllCombinations(List<List<int>> combinations, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) {
+  void verifyAllCombinations(
+    List<List<int>> combinations,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) {
     Approvals.verifyAllCombinations(
       combinations,
       processor: (combination) => 'Combination: ${combination.join(", ")}',
@@ -83,10 +95,13 @@ class ApprovalTestHelper {
     );
   }
 
-  void verifySequence(List<int> sequence, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) {
+  void verifySequence(
+    List<int> sequence,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) {
     Approvals.verifySequence(
       sequence,
       options: _getOptions(
@@ -98,10 +113,13 @@ class ApprovalTestHelper {
     );
   }
 
-  Future<void> verifyQuery(ExecutableQuery query, String testName,
-      {bool expectException = false,
-      bool approveResult = false,
-      bool deleteReceivedFile = true}) async {
+  Future<void> verifyQuery(
+    ExecutableQuery query,
+    String testName, {
+    bool expectException = false,
+    bool approveResult = false,
+    bool deleteReceivedFile = true,
+  }) async {
     await Approvals.verifyQuery(
       query,
       options: _getOptions(
@@ -113,15 +131,16 @@ class ApprovalTestHelper {
     );
   }
 
-  Options _getOptions(String testName,
-      {required bool expectException,
-      required bool approveResult,
-      required bool deleteReceivedFile}) {
-    return Options(
-      filesPath: '$basePath/$testName',
-      deleteReceivedFile: deleteReceivedFile,
-      approveResult: approveResult,
-      logErrors: !expectException,
-    );
-  }
+  Options _getOptions(
+    String testName, {
+    required bool expectException,
+    required bool approveResult,
+    required bool deleteReceivedFile,
+  }) =>
+      Options(
+        filesPath: '$basePath/$testName',
+        deleteReceivedFile: deleteReceivedFile,
+        approveResult: approveResult,
+        logErrors: !expectException,
+      );
 }

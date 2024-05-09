@@ -1,18 +1,21 @@
 part of '../../../approval_tests.dart';
 
 class ApprovalConverter {
+  const ApprovalConverter._();
   static String convert(String jsonString) {
     // Decode the JSON string to a dynamic object
-    var decodedJson = jsonDecode(jsonString);
+    final decodedJson = jsonDecode(jsonString);
     // Use JsonEncoder with custom indentation
-    var encoder = const JsonEncoder.withIndent('  ');
+    const encoder = JsonEncoder.withIndent('  ');
     // Convert the dynamic object back to a string with indentation
     return encoder.convert(decodedJson);
   }
 
   /// `encodeReflectively` is a method that encodes an object to JSON format using reflection.
-  static String encodeReflectively(Object? object,
-      {bool includeClassName = false}) {
+  static String encodeReflectively(
+    Object? object, {
+    bool includeClassName = false,
+  }) {
     if (object == null) {
       return 'null';
     }
@@ -28,8 +31,8 @@ class ApprovalConverter {
     }
 
     // Reflect the object
-    InstanceMirror mirror = reflect(object);
-    ClassMirror classMirror = mirror.type;
+    final InstanceMirror mirror = reflect(object);
+    final ClassMirror classMirror = mirror.type;
 
     if (object is String) {
       // JSON encode strings with proper escaping
@@ -40,25 +43,25 @@ class ApprovalConverter {
     }
 
     // Handling custom objects
-    Map<String, String> jsonMap = {};
+    final Map<String, String> jsonMap = {};
 
     // Iterate over the instance variables of the class
-    for (var value in classMirror.declarations.values) {
+    for (final value in classMirror.declarations.values) {
       if (value is VariableMirror && !value.isStatic) {
-        String key = MirrorSystem.getName(value.simpleName);
-        var reflectee = mirror.getField(value.simpleName).reflectee;
+        final String key = MirrorSystem.getName(value.simpleName);
+        final reflectee = mirror.getField(value.simpleName).reflectee;
         jsonMap[key] = encodeReflectively(reflectee);
       }
     }
 
     // Format the map into JSON
-    String jsonBody = jsonMap.entries
+    final String jsonBody = jsonMap.entries
         .map((entry) => '"${entry.key}": ${entry.value}')
         .join(', ');
 
     if (includeClassName) {
-      String className = MirrorSystem.getName(classMirror.simpleName);
-      String capitalizedClassName =
+      final String className = MirrorSystem.getName(classMirror.simpleName);
+      final String capitalizedClassName =
           '${className[0].toLowerCase()}${className.substring(1)}';
       return '{"$capitalizedClassName": {$jsonBody}}';
     }

@@ -7,7 +7,5 @@ final class Item {
   Item(this.name, {required this.sellIn, required this.quality});
 
   @override
-  String toString() {
-    return 'Item{name: $name, sellIn: $sellIn, quality: $quality}';
-  }
+  String toString() => 'Item{name: $name, sellIn: $sellIn, quality: $quality}';
 }

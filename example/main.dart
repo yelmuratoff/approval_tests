@@ -6,7 +6,7 @@ void main() {
     test("Verify all combinations", () {
       Approvals.verifyAll(
         [3, 5, 15],
-        options: Options(
+        options: const Options(
           comparator: IDEComparator(
             ide: ComparatorIDE.visualStudioCode,
           ),

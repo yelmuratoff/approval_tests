@@ -7,19 +7,19 @@ import 'package:approval_tests/approval_tests.dart';
 class NetworkRequestQuery implements ExecutableQuery {
   final Uri endpoint;
 
-  NetworkRequestQuery(this.endpoint);
+  const NetworkRequestQuery(this.endpoint);
 
   @override
   String getQuery() => 'GET ${endpoint.toString()}';
 
   @override
   Future<String> executeQuery(String query) async {
-    var client = HttpClient();
+    final client = HttpClient();
     try {
-      var request = await client.getUrl(endpoint);
-      var response = await request.close();
+      final request = await client.getUrl(endpoint);
+      final response = await request.close();
       if (response.statusCode == HttpStatus.ok) {
-        var responseBody = await response.transform(utf8.decoder).join();
+        final responseBody = await response.transform(utf8.decoder).join();
         return responseBody;
       } else {
         return 'Error: ${response.statusCode}';
