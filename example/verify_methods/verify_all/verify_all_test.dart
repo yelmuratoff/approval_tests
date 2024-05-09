@@ -8,6 +8,7 @@ void main() {
     Approvals.verifyAll(
       items,
       processor: (item) => 'Item: $item',
+      options: Options(deleteReceivedFile: true),
     );
   });
 }

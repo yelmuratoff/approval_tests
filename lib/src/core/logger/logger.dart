@@ -1,13 +1,14 @@
 part of '../../../approval_tests.dart';
 
-/// `AppLogger` is a class that provides methods to log messages with different log levels.
-final class AppLogger {
+/// `ApprovalLogger` is a class that provides methods to log messages with different log levels.
+final class ApprovalLogger {
   // Private property holding the instance of Logger
   final Talker _logger;
 
   // Singleton instance of AppLogger
-  static final AppLogger _instance = AppLogger._internal(
+  static final ApprovalLogger _instance = ApprovalLogger._internal(
     Talker(
+      logger: TalkerLogger(settings: TalkerLoggerSettings(maxLineWidth: 125)),
       settings: TalkerSettings(
         titles: _defaultTitles,
         colors: {
@@ -16,20 +17,15 @@ final class AppLogger {
           TalkerLogType.verbose: AnsiPen()..gray(),
           TalkerLogType.info: AnsiPen()..cyan(),
           TalkerLogType.debug: AnsiPen()..gray(),
-          TalkerLogType.error: AnsiPen()..red(),
-          TalkerLogType.exception: AnsiPen()..red(),
+          TalkerLogType.error: ApprovalUtils.hexToAnsiPen('de7979'),
+          TalkerLogType.exception: ApprovalUtils.hexToAnsiPen('de7979'),
         },
       ),
     ),
   );
 
-  // Factory constructor returning the Singleton instance
-  factory AppLogger() {
-    return _instance;
-  }
-
   // Private internal constructor for initializing the Logger instance
-  AppLogger._internal(this._logger);
+  ApprovalLogger._internal(this._logger);
 
   // Define constant title with ANSI color codes.
   static const _approvalTitle = "ApprovalTests";
@@ -49,7 +45,8 @@ final class AppLogger {
   static void log(String message) => _instance._logger.debug(message);
 
   /// `info` method to log messages with success log level.
-  static void success(String message) => _instance._logger.logTyped(_SuccessLog(message));
+  static void success(String message) =>
+      _instance._logger.logTyped(_SuccessLog(message));
 
   /// `error` method to log messages with error log level.
   static void error(String message) => _instance._logger.error(message);
@@ -71,7 +68,7 @@ class _SuccessLog extends TalkerLog {
 
   /// Your custom log title
   @override
-  String get title => '🟢 ${AppLogger._approvalTitle}';
+  String get title => '🟢 ${ApprovalLogger._approvalTitle}';
 
   /// Your custom log color
   @override

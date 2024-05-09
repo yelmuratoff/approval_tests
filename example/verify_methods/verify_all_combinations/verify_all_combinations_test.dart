@@ -11,6 +11,7 @@ void main() {
     Approvals.verifyAllCombinations(
       inputs,
       processor: (combination) => 'Combination: ${combination.join(", ")}',
+      options: Options(deleteReceivedFile: true),
     );
   });
 }

@@ -2,25 +2,13 @@ part of '../../../approval_tests.dart';
 
 // Define utility class for approval related operations. It contains methods for converting string cases and retrieving directory or file path.
 final class ApprovalUtils {
-  // Method that converts a snake_case string to camelCase.
-  static String toCamelCaseFromSnakeCase(String snakeCase) {
-    return snakeCase.split('_').map((String word) {
-      // Split the snake_case string by '_'
-      return word[0].toUpperCase() + word.substring(1); // Capitalize the first character of each word and concatenate the rest of the string.
-    }).join(''); // Join all the words to form a string.
-  }
+  static AnsiPen hexToAnsiPen(String hex) {
+    int red = int.parse(hex.substring(0, 2), radix: 16);
+    int green = int.parse(hex.substring(2, 4), radix: 16);
+    int blue = int.parse(hex.substring(4, 6), radix: 16);
 
-  // Method that converts a camelCase string to snake_case.
-  static String toSnakeCaseFromCamelCase(String camelCase) {
-    return camelCase
-        .split('') // Split the camelCase string into individual letters.
-        .map((String letter) {
-          return letter == letter.toUpperCase()
-              ? '_${letter.toLowerCase()}'
-              : letter; // If the letter is uppercase, prepend '_' and convert it to lowercase. Else, just use the letter.
-        })
-        .join('') // Join all the letters to form a string.
-        .substring(1); // Remove the first '_' that was added before the first word.
+    AnsiPen pen = AnsiPen()..rgb(r: red / 255, g: green / 255, b: blue / 255);
+    return pen;
   }
 
   /// Computes the Cartesian product of a list of lists.
@@ -32,14 +20,13 @@ final class ApprovalUtils {
       }
       return result;
     } catch (e) {
-      AppLogger.exception(e);
       rethrow;
     }
   }
 
   // Property that gets the directory path of the current file.
   static String get directoryPath {
-    return '${Platform.script.path.split('/').sublist(0, filePath.split('/').length - 1).join('/')}/'; // Get parts of the path except the last one (filename), join them with '/' and append '/' at the end.
+    return '${filePath.split('/').sublist(0, filePath.split('/').length - 1).join('/')}/'; // Get parts of the path except the last one (filename), join them with '/' and append '/' at the end.
   }
 
   // Property that gets the file name from file path.
@@ -58,11 +45,11 @@ final class ApprovalUtils {
     return DartScript.self.pathToScript;
   }
 
-  static Future<String> readFile({
+  static String readFile({
     required String path,
-  }) async {
+  }) {
     File file = File(path);
-    return await file.readAsString();
+    return file.readAsStringSync();
   }
 
   static String lines(int count) {
@@ -73,8 +60,8 @@ final class ApprovalUtils {
   static bool filesMatch(String approvedPath, String receivedPath) {
     try {
       // Read contents of the approved and received files
-      var approved = File(approvedPath).readAsStringSync();
-      var received = File(receivedPath).readAsStringSync();
+      var approved = ApprovalUtils.readFile(path: approvedPath);
+      var received = ApprovalUtils.readFile(path: receivedPath);
 
       // Return true if contents of both files match exactly
       return approved == received;

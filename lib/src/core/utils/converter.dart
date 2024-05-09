@@ -1,6 +1,6 @@
 part of '../../../approval_tests.dart';
 
-class Converter {
+class ApprovalConverter {
   static String convert(String jsonString) {
     // Decode the JSON string to a dynamic object
     var decodedJson = jsonDecode(jsonString);

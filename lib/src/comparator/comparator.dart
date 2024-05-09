@@ -17,7 +17,10 @@ abstract class ComparatorImp implements Comparator {
   const ComparatorImp();
 
   /// A method named `logError` for logging errors.
-  void logError(String message) {
-    AppLogger.error(message);
+  void logError({
+    required Object exception,
+    StackTrace? stackTrace,
+  }) {
+    ApprovalLogger.exception(exception, stackTrace: stackTrace);
   }
 }

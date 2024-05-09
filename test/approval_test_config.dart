@@ -1,10 +1,29 @@
 part of 'approval_test.dart';
 
-/// `ApprovalTestConfig` is a class that provides methods to verify the content of a response. The class is used as an additional layer for ease of testing.
-class ApprovalTestConfig {
-  final String basePath = 'test/approved_files/';
+/// `ApprovalTestHelper` is a class that provides methods to verify the content of a response. The class is used as an additional layer for ease of testing.
+class ApprovalTestHelper {
+  const ApprovalTestHelper();
 
-  void verify(String content, String testName, {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) {
+  static const String basePath = 'test/approved_files/';
+
+  static const jsonItem = JsonItem(
+    id: 1,
+    name: "JsonItem",
+    anotherItem: AnotherItem(id: 1, name: "AnotherItem"),
+    subItem: SubItem(
+      id: 1,
+      name: "SubItem",
+      anotherItems: [
+        AnotherItem(id: 1, name: "AnotherItem 1"),
+        AnotherItem(id: 2, name: "AnotherItem 2"),
+      ],
+    ),
+  );
+
+  void verify(String content, String testName,
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) {
     Approvals.verify(
       content,
       options: _getOptions(
@@ -16,10 +35,14 @@ class ApprovalTestConfig {
     );
   }
 
-  void verifyAll(List<String> contents, String testName, {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) {
+  void verifyAll(List<String> contents, String testName,
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) {
     Approvals.verifyAll(
       contents,
-      processor: (item) => item, // Simple processor function that returns the item itself.
+      processor: (item) =>
+          item, // Simple processor function that returns the item itself.
       options: _getOptions(
         testName,
         expectException: expectException,
@@ -29,10 +52,12 @@ class ApprovalTestConfig {
     );
   }
 
-  void verifyAsJson(Map<String, dynamic> json, String testName,
-      {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) {
+  void verifyAsJson(dynamic encodable, String testName,
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) {
     Approvals.verifyAsJson(
-      json,
+      encodable,
       options: _getOptions(
         testName,
         expectException: expectException,
@@ -43,7 +68,9 @@ class ApprovalTestConfig {
   }
 
   void verifyAllCombinations(List<List<int>> combinations, String testName,
-      {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) {
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) {
     Approvals.verifyAllCombinations(
       combinations,
       processor: (combination) => 'Combination: ${combination.join(", ")}',
@@ -57,7 +84,9 @@ class ApprovalTestConfig {
   }
 
   void verifySequence(List<int> sequence, String testName,
-      {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) {
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) {
     Approvals.verifySequence(
       sequence,
       options: _getOptions(
@@ -70,7 +99,9 @@ class ApprovalTestConfig {
   }
 
   Future<void> verifyQuery(ExecutableQuery query, String testName,
-      {bool expectException = false, bool approveResult = false, bool deleteReceivedFile = true}) async {
+      {bool expectException = false,
+      bool approveResult = false,
+      bool deleteReceivedFile = true}) async {
     await Approvals.verifyQuery(
       query,
       options: _getOptions(
@@ -82,7 +113,10 @@ class ApprovalTestConfig {
     );
   }
 
-  Options _getOptions(String testName, {required bool expectException, required bool approveResult, required bool deleteReceivedFile}) {
+  Options _getOptions(String testName,
+      {required bool expectException,
+      required bool approveResult,
+      required bool deleteReceivedFile}) {
     return Options(
       filesPath: '$basePath/$testName',
       deleteReceivedFile: deleteReceivedFile,

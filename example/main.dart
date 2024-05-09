@@ -10,6 +10,7 @@ void main() {
           comparator: IDEComparator(
             ide: ComparatorIDE.visualStudioCode,
           ),
+          deleteReceivedFile: true,
         ),
         processor: (items) => fizzBuzz(items).toString(),
       );

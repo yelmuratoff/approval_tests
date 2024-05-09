@@ -1,41 +1,55 @@
 import 'package:approval_tests/approval_tests.dart';
 import 'package:test/test.dart';
 
-import '../example/verify_methods/verify_query/verify_db_query_test.dart';
+import 'models/item.dart';
+import 'queries/db_request_query.dart';
 
 part 'approval_test_config.dart';
+part 'constants/lines.dart';
 
 void main() {
-  final approvalsTestConfig = ApprovalTestConfig();
-  final dbQuery = DatabaseRequestQuery("1");
+  const helper = ApprovalTestHelper();
+  const dbQuery = DatabaseRequestQuery("1");
+  final lines = _Lines.lines25;
+
+  setUpAll(() {
+    ApprovalLogger.log("$lines Tests are starting $lines");
+  });
 
   group('Approvals: pass cases |', () {
+    setUpAll(() {
+      ApprovalLogger.log("$lines Group: Pass cases are starting $lines");
+    });
     test('Verify string with approved result options', () {
-      approvalsTestConfig.verify('Hello World', 'verify', approveResult: true);
+      helper.verify('Hello World', 'verify', approveResult: true);
     });
 
     test('Verify all strings in a list', () {
-      approvalsTestConfig.verifyAll(['Hello World', 'Hello World'], 'verify_all');
+      helper.verifyAll(['Hello World', 'Hello World'], 'verify_all');
     });
 
     test('Verify JSON data', () {
-      approvalsTestConfig.verifyAsJson({"message": "Hello World"}, 'verify_as_json');
+      helper.verifyAsJson({"message": "Hello World"}, 'verify_as_json');
+    });
+
+    test('Verify JSON data: with model', () {
+      helper.verifyAsJson(ApprovalTestHelper.jsonItem, 'verify_as_model_json');
     });
 
     test('Verify all combinations', () {
-      approvalsTestConfig.verifyAllCombinations([
+      helper.verifyAllCombinations([
         [1, 2],
         [3, 4],
       ], 'verify_all_combinations');
     });
 
     test("Verify sequence", () {
-      approvalsTestConfig.verifySequence([1, 2, 3], 'verify_sequence');
+      helper.verifySequence([1, 2, 3], 'verify_sequence');
     });
 
     // Not work
     test("Verify query result", () async {
-      await approvalsTestConfig.verifyQuery(dbQuery, 'verify_query');
+      await helper.verifyQuery(dbQuery, 'verify_query');
     });
 
     // Work
@@ -51,30 +65,38 @@ void main() {
   });
 
   group('Approvals test for exceptions |', () {
+    setUpAll(() {
+      ApprovalLogger.error("$lines Group: Exception cases are starting $lines");
+    });
     test('Verify method should throw', () {
       expect(
-        () => approvalsTestConfig.verify('Hello World', 'verify_exception', expectException: true),
+        () => helper.verify('Hello World', 'verify_exception',
+            expectException: true),
         throwsA(isA<Exception>()),
       );
     });
 
     test('Verify all method should throw', () {
       expect(
-        () => approvalsTestConfig.verifyAll(['Hello World', 'Hello World'], 'verify_exception', expectException: true),
+        () => helper.verifyAll(
+            ['Hello World', 'Hello World'], 'verify_exception',
+            expectException: true),
         throwsA(isA<Exception>()),
       );
     });
 
     test('VerifyAsJson method should throw', () {
       expect(
-        () => approvalsTestConfig.verifyAsJson({"message": "Hello World"}, 'verify_as_json_exception', expectException: true),
+        () => helper.verifyAsJson(
+            {"message": "Hello World"}, 'verify_as_json_exception',
+            expectException: true),
         throwsA(isA<Exception>()),
       );
     });
 
     test('Verify all combinations method should throw', () {
       expect(
-        () => approvalsTestConfig.verifyAllCombinations([
+        () => helper.verifyAllCombinations([
           [1, 2],
           [3, 4],
         ], 'verify_all_combinations_exception', expectException: true),
@@ -84,21 +106,23 @@ void main() {
 
     test("Verify sequence method should throw", () {
       expect(
-        () => approvalsTestConfig.verifySequence([1, 2, 3], 'verify_sequence_exception', expectException: true),
+        () => helper.verifySequence([1, 2, 3], 'verify_sequence_exception',
+            expectException: true),
         throwsA(isA<Exception>()),
       );
     });
 
     test("Verify query method should throw", () async {
       expect(
-        () => approvalsTestConfig.verifyQuery(dbQuery, 'verify_query_exception', expectException: true),
+        () => helper.verifyQuery(dbQuery, 'verify_query_exception',
+            expectException: true),
         throwsA(isA<Exception>()),
       );
     });
 
     test("Does not match exception", () {
       expect(
-        () => approvalsTestConfig.verify(
+        () => helper.verify(
           'Hello W0rld',
           'verify',
           expectException: true,
@@ -108,9 +132,9 @@ void main() {
       );
     });
 
-    test("Log error test", () {
+    test("Log does not match exception", () {
       expect(
-        () => approvalsTestConfig.verify(
+        () => helper.verify(
           'Hello W0rld',
           'verify',
           expectException: false,
@@ -119,5 +143,9 @@ void main() {
         throwsA(isA<DoesntMatchException>()),
       );
     });
+  });
+
+  tearDownAll(() {
+    ApprovalLogger.log("$lines All tests are done $lines");
   });
 }

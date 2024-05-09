@@ -20,10 +20,14 @@ final class IDEComparator extends ComparatorImp {
     bool isLogError = true,
   }) async {
     try {
-      await Process.run(ide.command, [ide.argument, approvedPath, receivedPath]);
-    } catch (e) {
+      await Process.run(
+          ide.command, [ide.argument, approvedPath, receivedPath]);
+    } catch (e, st) {
       if (isLogError) {
-        logError('Error during comparison via ${ide.name}. Please restart your IDE. Error: $e');
+        logError(
+            exception:
+                'Error during comparison via ${ide.name}. Please restart your IDE. Error: $e',
+            stackTrace: st);
       }
       rethrow;
     }

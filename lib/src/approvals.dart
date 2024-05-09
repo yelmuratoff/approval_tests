@@ -14,13 +14,14 @@ class Approvals {
   }) {
     try {
       // Get the file path without extension or use the provided file path
-      final completedPath = options.filesPath ?? (ApprovalUtils.filePath).split('.').first;
+      final completedPath =
+          options.filesPath ?? (ApprovalUtils.filePath).split('.').first;
 
       // Create namer object with given or computed file name
       final namer = makeNamer(options.filesPath ?? completedPath);
 
       // Create writer object with scrubbed response and file extension retrieved from options
-      final writer = ApprovalTextWriter(options.scrub(response), options.fileExtensionWithoutDot);
+      final writer = ApprovalTextWriter(options.scrub(response), "txt");
 
       // Write the content to a file whose path is specified in namer.received
       writer.writeToFile(namer.received);
@@ -30,23 +31,36 @@ class Approvals {
       }
 
       // Check if received file matches the approved file
-      final bool isFilesMatch = ApprovalUtils.filesMatch(namer.approved, namer.received);
+      final bool isFilesMatch =
+          ApprovalUtils.filesMatch(namer.approved, namer.received);
 
       // Log results and throw exception if files do not match
       if (!isFilesMatch) {
-        options.comparator.compare(approvedPath: namer.approved, receivedPath: namer.received, isLogError: options.logErrors);
-        throw DoesntMatchException('Test failed: ${namer.approved} does not match ${namer.received}');
+        options.comparator.compare(
+            approvedPath: namer.approved,
+            receivedPath: namer.received,
+            isLogError: options.logErrors);
+        throw DoesntMatchException(
+            'Test failed: ${namer.approved} does not match ${namer.received}');
       } else if (isFilesMatch) {
-        AppLogger.success('Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+        if (options.logResults) {
+          ApprovalLogger.success(
+              'Test passed: [${namer.approvedFileName}] matches [${namer.receivedFileName}]');
+        }
       }
     } catch (e, st) {
       if (options.logErrors) {
-        AppLogger.exception(e, stackTrace: st);
+        ApprovalLogger.exception(e, stackTrace: st);
       }
       rethrow;
     } finally {
-      if (options.deleteReceivedFile && options.filesPath != null) {
-        ApprovalUtils.deleteFile(Namer(options.filesPath!).received);
+      if (options.deleteReceivedFile) {
+        if (options.filesPath != null) {
+          ApprovalUtils.deleteFile(Namer(options.filesPath!).received);
+        } else {
+          ApprovalUtils.deleteFile(
+              Namer((ApprovalUtils.filePath).split('.').first).received);
+        }
       }
     }
   }
@@ -77,8 +91,9 @@ class Approvals {
   }) {
     try {
       // Encode the object into JSON format
-      var jsonContent = Converter.encodeReflectively(encodable, includeClassName: true);
-      var prettyJson = Converter.convert(jsonContent);
+      var jsonContent = ApprovalConverter.encodeReflectively(encodable,
+          includeClassName: true);
+      var prettyJson = ApprovalConverter.convert(jsonContent);
 
       // Call the verify method on encoded JSON content
       verify(prettyJson, options: options);

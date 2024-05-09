@@ -5,9 +5,6 @@ class Options {
   /// A final bool variable `isScrub` used to determine if the input should be scrubbed.
   final bool isScrub;
 
-  /// A final String variable `fileExtensionWithoutDot` used to set the file extension without a dot.
-  final String fileExtensionWithoutDot;
-
   /// A final variable `comparator` of type `Comparator` used to compare the approved and received files.
   final Comparator comparator;
 
@@ -29,17 +26,20 @@ class Options {
   /// A final bool variable `logErrors` used to determine if the errors should be logged.
   final bool logErrors;
 
+  /// A final bool variable `logResults` used to determine if the results should be logged.
+  final bool logResults;
+
   // A constructor for the class Options which initializes `isScrub` and `fileExtensionWithoutDot`.
   const Options({
     this.isScrub = false,
     this.approveResult = false,
-    this.fileExtensionWithoutDot = 'txt',
     this.comparator = const CommandLineComparator(),
     this.filesPath,
     this.line,
     this.deleteReceivedFile = false,
     this.namer,
     this.logErrors = true,
+    this.logResults = true,
   });
 
   // A method named `scrub` takes a string input, if `isScrub` is true it scrubs the input,

@@ -1,3 +1,12 @@
+## 0.2.2-dev
+
+- Approval was refactored
+- Added tests
+- Code formatted
+- `deleteReceivedFile` field was added to the `ApprovalTests` class. If it is set to `true`, the received file will be deleted after test. By default, it is set to `false`.
+- `logErrors` field was added to the `ApprovalTests` class. If it is set to `true`, the errors will be logged. By default, it is set to `true`.
+- `logResults` field was added to the `ApprovalTests` class. If it is set to `true`, the success results will be logged. By default, it is set to `true`.
+
 ## 0.2.1-dev
 
 - Fix: approval_dart changed to approval_tests.

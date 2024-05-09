@@ -7,6 +7,7 @@ void main() {
 
     Approvals.verifySequence(
       sequence,
+      options: Options(deleteReceivedFile: true),
     );
   });
 }

@@ -6,12 +6,9 @@ void main() {
     String response =
         '{"result": "success", "data": {"id": 1, "name": "Item"}}';
 
-    try {
-      Approvals.verify(
-        response,
-      );
-    } catch (e) {
-      print('Verification failed: $e');
-    }
+    Approvals.verify(
+      response,
+      options: Options(deleteReceivedFile: true),
+    );
   });
 }
