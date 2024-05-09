@@ -1,24 +1,34 @@
+import 'dart:io';
+
 import 'package:approval_tests/approval_tests.dart';
 import 'package:test/test.dart';
 
 import 'models/item.dart';
 import 'queries/db_request_query.dart';
 
-part 'approval_test_config.dart';
+part 'utils/helper.dart';
 part 'constants/lines.dart';
 
 void main() {
+  /// ================== Init fields ==================
+
   const helper = ApprovalTestHelper();
   const dbQuery = DatabaseRequestQuery("1");
   const lines = _Lines.lines25;
+
+  /// ================== Set up ==================
 
   setUpAll(() {
     ApprovalLogger.log("$lines Tests are starting $lines");
   });
 
-  group('Approvals: pass cases |', () {
+  /// ================== Approvals: verify methods ==================
+
+  group('Approvals: verify methods |', () {
     setUpAll(() {
-      ApprovalLogger.log("$lines Group: Pass cases are starting $lines");
+      ApprovalLogger.log(
+        "$lines Group: Test verify methods are starting $lines",
+      );
     });
     test('Verify string with approved result options', () {
       helper.verify('Hello World', 'verify', approveResult: true);
@@ -67,44 +77,56 @@ void main() {
     });
   });
 
-  group('Approvals test for exceptions |', () {
+  /// ================== Approvals: test for exceptions ==================
+  group('Approvals: test for exceptions |', () {
     setUpAll(() {
       ApprovalLogger.error("$lines Group: Exception cases are starting $lines");
     });
-    test('Verify method should throw', () {
+    test('Method «verify» must throw PathNotFoundException', () {
       expect(
         () => helper.verify(
           'Hello World',
           'verify_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+      ApprovalLogger.success(
+        "Test Passed: Method «verify» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test('Verify all method should throw', () {
+    test('Method «verifyAll» must throw PathNotFoundException', () {
       expect(
         () => helper.verifyAll(
           ['Hello World', 'Hello World'],
           'verify_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verifyAll» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test('VerifyAsJson method should throw', () {
+    test('Method «verifyAsJson» must throw PathNotFoundException', () {
       expect(
         () => helper.verifyAsJson(
           {"message": "Hello World"},
           'verify_as_json_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verifyAsJson» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test('Verify all combinations method should throw', () {
+    test('Method «verifyAllCombinations» must throw PathNotFoundException', () {
       expect(
         () => helper.verifyAllCombinations(
           [
@@ -114,33 +136,45 @@ void main() {
           'verify_all_combinations_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verifyAllCombinations» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test("Verify sequence method should throw", () {
+    test("Method «verifySequence» must throw PathNotFoundException", () {
       expect(
         () => helper.verifySequence(
           [1, 2, 3],
           'verify_sequence_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verifySequence» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test("Verify query method should throw", () async {
+    test("Method «verifyQuery» must throw PathNotFoundException", () async {
       expect(
         () => helper.verifyQuery(
           dbQuery,
           'verify_query_exception',
           expectException: true,
         ),
-        throwsA(isA<Exception>()),
+        throwsA(isA<PathNotFoundException>()),
+      );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verifyQuery» correctly throws PathNotFoundException as expected.",
       );
     });
 
-    test("Does not match exception", () {
+    test("Method «verify» must throw DoesntMatchException", () {
       expect(
         () => helper.verify(
           'Hello W0rld',
@@ -149,9 +183,13 @@ void main() {
         ),
         throwsA(isA<DoesntMatchException>()),
       );
+
+      ApprovalLogger.success(
+        "Test Passed: Method «verify» correctly throws DoesntMatchException as expected.",
+      );
     });
 
-    test("Log does not match exception", () {
+    test("Method «verify» must throw DoesntMatchException with error handling", () {
       expect(
         () => helper.verify(
           'Hello W0rld',
@@ -159,8 +197,35 @@ void main() {
         ),
         throwsA(isA<DoesntMatchException>()),
       );
+      ApprovalLogger.success(
+        "Test Passed: Successfully handled a log mismatch. Method «verify» correctly throws DoesntMatchException as expected.",
+      );
     });
   });
+
+  /// ================== Approvals: test for exceptions ==================
+
+  group('Approvals: test of other minor things |', () {
+    setUpAll(() {
+      ApprovalLogger.log("$lines Group: Minor cases are starting $lines");
+    });
+    test('Verify method without initial path: PathNotFoundException', () {
+      expect(
+        () => helper.verify(
+          'Hello World',
+          'verify_exception',
+          expectException: true,
+          useDefaultPath: false,
+        ),
+        throwsA(isA<PathNotFoundException>()),
+      );
+      ApprovalLogger.success(
+        "Test Passed: The method was successfully verified for absence of an initial path — PathNotFoundException was thrown.",
+      );
+    });
+  });
+
+  /// ================== Tear down ==================
 
   tearDownAll(() {
     ApprovalLogger.log("$lines All tests are done $lines");

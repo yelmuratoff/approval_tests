@@ -1,4 +1,4 @@
-part of 'approval_test.dart';
+part of '../approval_test.dart';
 
 /// `ApprovalTestHelper` is a class that provides methods to verify the content of a response. The class is used as an additional layer for ease of testing.
 class ApprovalTestHelper {
@@ -26,6 +26,7 @@ class ApprovalTestHelper {
     bool expectException = false,
     bool approveResult = false,
     bool deleteReceivedFile = true,
+    bool useDefaultPath = true,
   }) {
     Approvals.verify(
       content,
@@ -136,9 +137,10 @@ class ApprovalTestHelper {
     required bool expectException,
     required bool approveResult,
     required bool deleteReceivedFile,
+    bool useDefaultPath = true,
   }) =>
       Options(
-        filesPath: '$basePath/$testName',
+        filesPath: useDefaultPath ? '$basePath/$testName' : null,
         deleteReceivedFile: deleteReceivedFile,
         approveResult: approveResult,
         logErrors: !expectException,

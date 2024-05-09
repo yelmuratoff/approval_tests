@@ -2,7 +2,6 @@ part of '../approval_tests.dart';
 
 /// `Approvals` is a class that provides methods to verify the content of a response.
 class Approvals {
-  const Approvals._();
   // Factory method to create an instance of ApprovalNamer with given file name
   static ApprovalNamer makeNamer(String file) => Namer(file);
 
