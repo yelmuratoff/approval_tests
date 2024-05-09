@@ -1,4 +1,4 @@
-## 0.2.2-dev
+## 0.3.0-dev
 
 - Approval was refactored
 - Added tests
