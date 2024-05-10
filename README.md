@@ -20,6 +20,8 @@
   <a href="https://pub.dev/packages/approval_tests/score"><img src="https://img.shields.io/pub/points/approval_tests?logo=flutter" alt="Pub points"></a>
 </p>
 
+## ❗️ Was moved to: https://github.com/approvals/ApprovalTests.Dart ❗️
+
 ## 📖 About
 
 Unit testing asserts can be **difficult** to use. `Approval tests` simplify this by taking a snapshot of the results, and confirming that they have not changed.   
